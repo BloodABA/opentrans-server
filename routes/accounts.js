@@ -1,4 +1,4 @@
-const DB_Follows = require('../models/follows');
+const DB_Accounts = require('../models/accounts');
 const router = require('express').Router();
 
 router.get('/', (req, res) => {
