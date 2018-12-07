@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "html": "^1.0.0",
+    "mongoose": "^5.3.15"
+  }
+}
