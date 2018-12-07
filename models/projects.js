@@ -54,7 +54,21 @@ const Database = new mongoose.Schema({
         type : Boolean,
         index : true,
         default : true
-    }
+    },
+
+    // 프로젝트 오픈 타임스탬프
+    openTimestamp : {
+        type : Number,
+        default : 0,
+        required : true
+    },
+
+    // 프로젝트 마감 타임스탬프
+    closeTimestamp : {
+        type : Number,
+        default : 0,
+        required : true
+    },
     
 
 });
