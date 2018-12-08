@@ -3,8 +3,31 @@ const ABAFunc = require('../func');
 const router = require('express').Router();
 
 login = (req, res) => {
-    req.body.username
-    req.body.password
+
+    let accounts = ABAFunc.getUserInformation(req.body.username);
+
+    if(!accounts) {
+        res.send({
+            status : false,
+            message : "존재하지 않는 아이디입니다."
+        })
+        return;
+    }
+
+    if(accounts.password === ABAFunc.passwordHash(req.body.password)) {
+        res.send({
+            status : true,
+            message : "로그인 성공"
+        })
+        return;
+    }
+
+    res.send({
+        status : false,
+        message : "존재하지 않는 아이디입니다."
+    })
+
+    return;
 
 }
 
@@ -34,6 +57,7 @@ profile = (req, res) => {
 }
 
 project = (req, res) => {
+
 }
 
 //# 로그인
