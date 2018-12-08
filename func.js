@@ -1,4 +1,5 @@
 const DB_Accounts = require('./models/accounts');
+const crypto = require("crypto"); // for 비밀번호 암호화
 
 const App = {}
 
@@ -129,7 +130,10 @@ App.passwordHash = (password) => {
 
 // 비밀번호 초기화 관련 암호화
 App.passwordResetHash = (password) => {
-    return;
+    let salt = Math.round((new Date().valueOf() * Math.random())) + "";
+    let hashPassword = crypto.createHash("sha512").update(password + salt).digest("hex");
+
+    return hashPassword;
 }
 
 // 올바른 LINK Blockchaoin Address인지 확인
