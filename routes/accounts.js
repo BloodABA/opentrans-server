@@ -139,6 +139,7 @@ register = async (req, res) => {
 }
 
 find_username = async (req, res) => {
+
     const account = await ABAFunc.getUserInformation(req.body.email, "email")
     if(!account) {
         res.send({
@@ -147,10 +148,12 @@ find_username = async (req, res) => {
         })
         return;
     }
+    
     res.send({
         status : true,
         message : ""
     })
+    
 }
 
 find_password = (req, res) => {
@@ -179,7 +182,11 @@ router.post('/login', login);
 router.post('/register', register);
 
 //# 아이디 찾기
-router.post('/find_username', find_username);
+router.post('/findusername', (req, res) => {
+    res.send("SAD");
+});
+
+// find_username
 
 //# 비밀번호 찾기
 router.post('/find_password', find_password);
