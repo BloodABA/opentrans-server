@@ -185,7 +185,29 @@
      - status : boolean
      - message : string
 
-5. `POST ` 중간 결산 = 바운티 지급 `/project/`
+5. `GET` 프로젝트리스트 `/project`
+  
+   - **REQUEST**
+     - NULL
+   - **RESPONSE**
+     - status : boolean
+     - data : Array
+       - _id : string
+       - owner : string
+       - url : string
+       - project : string
+       - description : string
+       - bounty : integer
+       - src : string
+       - dest : string
+       - openstamp : integer
+       - closestamp : integer
+       - isOpensource : boolean
+       - progress : number
+       - visiblity : boolean
+
+
+6. `POST ` 중간 결산 = 바운티 지급 `/project/?/?`
 
    지급해야 하는(Accept 되어 지급 대기중인)모든 보상들을 지급한다.
 
