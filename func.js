@@ -128,15 +128,16 @@ App.sendMail = (to, title, body) => {
 
 // 비밀번호 단방향 암호화
 App.passwordHash = (password) => {
-    //
-    return "ASD";
+    let salt = Math.round((new Date().valueOf() * Math.random())) + "";
+    let hashPassword = crypto.createHash("sha512").update(password + salt).digest("hex");
+    return hashPassword;
 }
 
 // 비밀번호 초기화 관련 암호화
-App.passwordResetHash = (password) => {
+App.passwordResetHash = () => {
+    password = crypto.randomBytes(20).toString('hex');
     let salt = Math.round((new Date().valueOf() * Math.random())) + "";
     let hashPassword = crypto.createHash("sha512").update(password + salt).digest("hex");
-
     return hashPassword;
 }
 
