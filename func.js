@@ -51,7 +51,8 @@ App.isRegLinkAddr = (username) => {
 
 // 한 사람의 프로젝트 목록을 가져온다
 App.getProjectList = (username) => {
-    return ;
+    DB_transLog.find({owner:username})
+    return;
 }
 
 // 이미 존재하는 projectUrl 인가?
