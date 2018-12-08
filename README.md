@@ -88,6 +88,8 @@
 
        - username : string
 
+       - contract : string
+
        - heatmap : object *<u>// 잔디밭 날짜별로 0에서 5까지, 최신 365개</u>*
 
          - date : string
@@ -104,29 +106,7 @@
          }
          ```
 
-7. `GET` 내 정보 열람 `/profile`
-
-   - **REQUEST**
-     - NULL
-
-   - **RESPONSE**
-
-     - status : true / false
-
-     - data : object
-
-       - nickname : string
-
-       - biograph : string
-
-       - username : string
-
-       - heatmap : object *<u>// 잔디밭 날짜별로 0에서 5까지, 최신 365개</u>*
-
-         - date : string
-         - weight : integer
-
-8. `GET` 프로젝트 목록`/project/list/<username>`
+7. `GET` 프로젝트 목록`/project/list/<username>`
 
    - **REQUEST**
      - NULL
@@ -146,6 +126,7 @@
        - isOpensource : boolean
        - progress : number
        - visiblity : boolean
+
 
 ### 프로젝트 관련
 1. `POST` 프로젝트 생성 `/project/create`
@@ -219,7 +200,6 @@
 2. 번역 문장 삭제
 3. 번역 문장 투표
 4. 번역 문장 검색
-5. 
 
 ## 
 
