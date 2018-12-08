@@ -2,6 +2,7 @@ const DB_Accounts = require('./models/accounts');
 const DB_Projects = require('./models/projects');
 const DB_Translate = require('./models/translate');
 const DB_transLog = require('./models/transLog');
+const DB_language = require('./models/languages');
 
 const nodemailer = require('nodemailer'); // for Email
 const fs = require('fs'); // for Email info
@@ -95,8 +96,19 @@ App.isValidBounty = (bounty) => {
 }
 
 // src -> dest 가 올바른가? ( 영어-영어 안됨 )
-App.isValidLanguage = (src, dest) => {
-    
+App.isValidLanguage = async (src, dest) => {
+
+    if(src === dest) {
+        return false;
+    }
+
+    var src = await DB_language.findById(src).exec()
+    var dest = await DB_language.findById(dest).exec()
+
+    if(!src || !dest) return false;
+
+    return true;    
+
 }
 
 // 총 지급 보상 계산
@@ -149,7 +161,6 @@ App.projectAccept = (projectUrl) => {
     
 }
 
-
 // to 에게 title, body를 보낸다.
 App.sendMail = (to, title, body) => {
 
@@ -161,24 +172,25 @@ App.sendMail = (to, title, body) => {
             user: emailInfo[0],
             pass: emailInfo[1]
         }
-        });
+    });
         
     let mailOptions = {    
         from: 'TranseOpen <ghsehr1@naver.com>',
         to: to,
         subject: title,
         text: body
-        };        
-        
+    };
+    
     transporter.sendMail(mailOptions, (error, info)=>{    
         if (error) {
+            transporter.close();
             return error;
         }
         else {
+            transporter.close();
             return ('Email sent! : ' + info.response);
         }
-        transporter.close();
-        });
+    });
     // return;
 }
 
