@@ -186,10 +186,6 @@ find_password_hash = (req, res) => {
 profile = async (req, res) => {
     const username = req.params.username;
     userInfo = await ABAFunc.getUserInformation(username)
-    // res.send({
-    //     status:true
-    // })
-    // return;
     if(userInfo){
         res.send({
             status : true,

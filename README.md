@@ -70,7 +70,7 @@
      - status : true / false
      - message : string
 
-6. `GET` 정보 열람 `/account/<username>`
+6. `GET` 정보 열람 `/profile/<username>`
 
    - **REQUEST**
 
@@ -106,7 +106,7 @@
          }
          ```
 
-7. `GET` 프로젝트 목록`/account/<username>/project`
+7. `GET` 프로젝트 목록`/project/list/<username>`
 
    - **REQUEST**
      - NULL
