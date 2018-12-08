@@ -152,9 +152,12 @@ find_password_hash = (req, res) => {
 }
 
 profile = (req, res) => {
+    const username = req.params.username;
+
 }
 
 project = (req, res) => {
+    const username = req.params.username;
 
 }
 
