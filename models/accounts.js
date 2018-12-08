@@ -48,7 +48,7 @@ const Database = new mongoose.Schema({
     },
 
     isAdmin: {
-        tpye : boolean,
+        type : Boolean,
         default : False
     }
 
