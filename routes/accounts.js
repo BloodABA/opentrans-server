@@ -2,9 +2,9 @@ const DB_Accounts = require('../models/accounts');
 const ABAFunc = require('../func');
 const router = require('express').Router();
 
-login = (req, res) => {
+login = async (req, res) => {
 
-    let accounts = ABAFunc.getUserInformation(req.body.username);
+    let accounts = await ABAFunc.getUserInformation(req.body.username);
 
     if(!accounts) {
         res.send({
@@ -13,7 +13,8 @@ login = (req, res) => {
         })
         return;
     }
-
+    console.log(accounts.password)
+    console.log(ABAFunc.passwordHash(req.body.password))
     if(accounts.password === ABAFunc.passwordHash(req.body.password)) {
         res.send({
             status : true,
@@ -28,7 +29,6 @@ login = (req, res) => {
     })
 
     return;
-
 }
 
 register = async (req, res) => {
@@ -128,7 +128,7 @@ register = async (req, res) => {
         console.error(error);
         res.send(500)
     })
-    
+
     return;
 
 }

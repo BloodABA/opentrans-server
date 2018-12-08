@@ -226,7 +226,7 @@ App.sendMail = (to, title, body) => {
 
 // 비밀번호 단방향 암호화
 App.passwordHash = (password) => {
-    let salt = Math.round((new Date().valueOf() * Math.random())) + "";
+    let salt = "BloodABA_SALT_IS_VERY_Sweety";
     let hashPassword = crypto.createHash("sha512").update(password + salt).digest("hex");
     return hashPassword;
 }
