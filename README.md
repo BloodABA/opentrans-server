@@ -197,8 +197,43 @@
 
 ### 번역
 1. 번역 문장 제출
+
+   - **REQUEST**
+     - TranslateKey : string
+     - Username : string
+     - Transe : string
+   - **RESPONSE**
+     - status : boolean
+     - message : string
+
 2. 번역 문장 삭제
+   - **REQUEST**
+     - TranslateKey : string
+     - Username : string
+     - Transe : string
+   - **RESPONSE**
+     - status : boolean
+     - message : string
+
 3. 번역 문장 투표
+   - **REQUEST**
+     - Username : string
+   - **RESPONSE**
+     - status : boolean
+     - message : string
+
 4. 관리자 채택
+   - **REQUEST**
+     - Username : string
+   - **RESPONSE**
+     - status : boolean
+     - message : string
+
+5. 번역 문장 검색
+   - **REQUEST**
+     - Username : string
+   - **RESPONSE**
+     - status : boolean
+     - message : string
 
 
