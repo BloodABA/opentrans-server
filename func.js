@@ -157,7 +157,16 @@ App.isVotedUser = async (username, transLogKey) => {
 
 // 서비스 최고 관리자인가?
 App.isSuperAdmin = async (username) => {
-    return await DB_Accounts.findById(username).exec();
+    var userInfo = getUserInformation(username);
+    if(userInfo) {
+        if(userInfo.isAdmin) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
 }
 
 // 프로젝트가 Close 가능한 상태인가?
