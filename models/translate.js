@@ -44,6 +44,13 @@ const Database = new mongoose.Schema({
         required : true
     },
 
+    // 채택된 transLog Key
+    acceptTransLog : {
+        type : String,
+        default : "",
+        required : false
+    },
+
     // 채택 시간
     acceptTime : {
         type : Number,

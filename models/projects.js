@@ -56,6 +56,13 @@ const Database = new mongoose.Schema({
         default : true
     },
 
+    // 오픈소스여부
+    isOpensource : {
+        type : Boolean,
+        index : true,
+        default : true
+    },
+
     // 프로젝트 오픈 타임스탬프
     openTimestamp : {
         type : Number,

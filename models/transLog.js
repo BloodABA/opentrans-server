@@ -15,6 +15,18 @@ const Database = new mongoose.Schema({
         required : true
     },
 
+    // 채택여부 (now)
+    isAccept : {
+        type : Boolean,
+        default : false
+    },
+
+    // 한번이라도 채택이 된 적이 있는 경우
+    isAccepted : {
+        type : Boolean,
+        default : false
+    },
+
     // Owner
     owner : {
         type : String,
