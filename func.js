@@ -52,14 +52,31 @@ App.isRegLinkAddr = (username) => {
 }
 
 // 한 사람의 프로젝트 목록을 가져온다
-App.getProjectList = (username) => {
-    DB_transLog.find({owner:username})
-    return;
+App.getProjectList = async (username) => {
+    const transLogs = await DB_transLog.find({owner:username})
+        .sort({
+            project : 1,
+        }).exec();
+    const projects = [];
+    let lastProject = "";
+    for(let i=0;i<transLogs.length;i++) {
+        if(lastProject !== transLogs[i].project) {
+            projects.push(transLogs[i].project)
+        }
+    }
+    return lastProject;
+}
+
+// projectUrl로 프로젝트 정보 가져오기
+App.getProjectInformation = (projectUrl) => {
+    return await DB_Projects.findOne({
+        projectUrl : projectUrl
+    }).exec()    
 }
 
 // 이미 존재하는 projectUrl 인가?
-App.isExistProjectURL = (projectUrl) => {
-
+App.isExistProjectURL = async (projectUrl) => {
+    return App.getProjectInformation(projectUrl) ? true : false
 }
 
 // bounty 금액이 올바른가?
@@ -69,11 +86,6 @@ App.isValidBounty = (bounty) => {
 
 // src -> dest 가 올바른가? ( 영어-영어 안됨 )
 App.isValidLanguage = (src, dest) => {
-    
-}
-
-// projectUrl로 프로젝트 정보 가져오기
-App.getProjectInformation = (projectUrl) => {
     
 }
 
