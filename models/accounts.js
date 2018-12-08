@@ -17,7 +17,7 @@ const Database = new mongoose.Schema({
     // 소개글
     biograph : {
         type : String,
-        required : true
+        default : "",
     },
 
     // 이메일, Unique 해야함
@@ -44,7 +44,7 @@ const Database = new mongoose.Schema({
     // Contract 주소
     address: {
         type : String,
-        required : true
+        default : ""
     },
 
     isAdmin: {

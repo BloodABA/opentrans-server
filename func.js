@@ -32,21 +32,22 @@ App.isValidUsername = (username) => {
 App.getUserInformation = async (search, type='username') => {
     if(type === 'email') {
         // email로 Search
-        return await DB_Accounts.findOne({ email : search }).exec()
+        return await DB_Accounts.findOne({ email : search }).exec();
     } else {
         // username으로 Search
-        return await DB_Accounts.findOne({ username : search }).exec()
+        return await DB_Accounts.findOne({ username : search })
     }
 }
 
 // 이미 존재하는 username인가?
 App.isExistUsername = (username) => {
-    return App.getProjectInformation(username, 'username') ? true : false;
+    return App.getUserInformation(username, 'username') ? true : false;
 }
 
 // 이미 존재하는 email인가?
-App.isExistEmail = (email) => {
-    return App.getProjectInformation(email, 'email') ? true : false;
+App.isExistEmail = async (email) => {
+    const result = await App.getUserInformation(email, 'email');
+    return !!result;
 }
 
 // LINK 지갑 주소가 등록된 사용자인가?

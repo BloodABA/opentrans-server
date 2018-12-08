@@ -31,7 +31,7 @@ login = (req, res) => {
 
 }
 
-register = (req, res) => {
+register = async (req, res) => {
 
     if(!req.body.fullname) {
         res.send({
@@ -93,7 +93,7 @@ register = (req, res) => {
         return;
     }
 
-    if(ABAFunc.isExistEmail(req.body.email)) {
+    if(await ABAFunc.isExistEmail(req.body.email)) {
         res.send({
             status : false,
             message : "이미 존재하는 이메일입니다."
@@ -101,7 +101,7 @@ register = (req, res) => {
         return;
     }
 
-    if(!ABAFunc.isExistUsername(req.body.username)) {
+    if(!await ABAFunc.isExistUsername(req.body.username)) {
         res.send({
             status : false,
             message : "이미 존재하는 Username 입니다."
@@ -109,21 +109,16 @@ register = (req, res) => {
         return;
     }
 
-    req.body.fullname
-    req.body.nickname
-    req.body.email
-    req.body.username
     req.body.password = ABAFunc.passwordHash(req.body.password)
-    req.body.contract
 
     DB_Accounts.create({
         fullname : req.body.fullname,
         nickname : req.body.nickname,
-        biograph : req.body.biograph,
         email : req.body.email,
         username : req.body.username,
         password : req.body.password,
-        address : req.body.address
+        biograph : "",
+        address : req.body.contract,
     }).then(results => {
         res.send({
             status : true,
@@ -133,6 +128,8 @@ register = (req, res) => {
         console.error(error);
         res.send(500)
     })
+    
+    return;
 
 }
 
