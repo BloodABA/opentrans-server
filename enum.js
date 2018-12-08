@@ -2,6 +2,7 @@ const App = {}
 
 App.port = 8080
 App.client = "https://link.jtj.kr"
+App.domain = "https://localhost:8080"
 App.mongo = {
     url : "mongodb://localhost/OpenTrans",
     // username : "",
@@ -16,6 +17,6 @@ App.maxBounty = 1000000
 
 // GMAIL
 App.gmailUsername = "opentranse@gmail.com";
-App.gmailPassword = "";
+App.gmailPassword = "opentranse1004";
 
 module.exports = App
