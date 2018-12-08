@@ -37,24 +37,24 @@ project = (req, res) => {
 }
 
 //# 로그인
-router.get('/login', login);
+router.post('/login', login);
 
 //# 회원가입
-router.get('/register', register);
+router.post('/register', register);
 
 //# 아이디 찾기
-router.get('/find_username', find_username);
+router.post('/find_username', find_username);
 
 //# 비밀번호 찾기
-router.get('/find_password', find_password);
+router.post('/find_password', find_password);
 
 //# 비밀번호 찾기 + 비밀번호 재설정
-router.get('/find_password/<hash>', find_password_hash);
+router.post('/find_password/<hash>', find_password_hash);
 
 //# 프로필 ( 정보 열람 )
-router.get('/profile/<username>', profile);
+router.get('/<username>', profile);
 
 //# 프로젝트 리스트
-router.get('/project/list/<username>', project);
+router.get('/<username>/project', project);
 
 module.exports = router;
