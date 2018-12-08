@@ -103,17 +103,17 @@ create = async (req, res) => {
 router.get('/:username/create', create);
 
 //# projectUrl에 해당하는 프로젝트 열람
-router.get('/:projectUrl',projectUrl);
+// router.get('/:projectUrl',projectUrl);
 
 //# [보류] 프로젝트 수정
-router.post('modify',modify);
+// router.post('modify',modify);
 
 //# [보류] 프로젝트 삭제 가능한지 체크
 //# 완료조건1. 채택 대기 중 번역문장이 존재하지 않을 것.
 //# 완료조건2. 번역이 진행된 문장에 대해 바운티가 모두 지급 되어있을 것.
-router.post('colse',close);
+// router.post('colse',close);
 
 //# 플랫폼 내 모든 프로젝트 리스트 호출
-router.get('/',list);
+// router.get('/',list);
 
 module.exports = router;
