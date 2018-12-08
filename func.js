@@ -36,7 +36,7 @@ App.isExistUsername = (username) => {
 
 // 이미 존재하는 email인가?
 App.isExistEmail = (email) => {
-
+    return App.getProjectInformation(email, 'email');
 }
 
 // LINK 지갑 주소가 등록된 사용자인가?
