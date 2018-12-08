@@ -79,7 +79,8 @@ App.isExistProjectURL = async (projectUrl) => {
 
 // bounty 금액이 올바른가?
 App.isValidBounty = (bounty) => {
-
+    // 1. 0 보다 작은 경우
+    // 2. 0 보다 큰 경우
 }
 
 // src -> dest 가 올바른가? ( 영어-영어 안됨 )
