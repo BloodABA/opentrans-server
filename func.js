@@ -65,9 +65,16 @@ App.getProjectList = async (username) => {
     return lastProject;
 }
 
-// 이미 존재하는 projectUrl 인가?
-App.isExistProjectURL = (projectUrl) => {
+// projectUrl로 프로젝트 정보 가져오기
+App.getProjectInformation = (projectUrl) => {
+    return await DB_Projects.findOne({
+        projectUrl : projectUrl
+    }).exec()    
+}
 
+// 이미 존재하는 projectUrl 인가?
+App.isExistProjectURL = async (projectUrl) => {
+    return App.getProjectInformation(projectUrl) ? true : false
 }
 
 // bounty 금액이 올바른가?
@@ -77,11 +84,6 @@ App.isValidBounty = (bounty) => {
 
 // src -> dest 가 올바른가? ( 영어-영어 안됨 )
 App.isValidLanguage = (src, dest) => {
-    
-}
-
-// projectUrl로 프로젝트 정보 가져오기
-App.getProjectInformation = (projectUrl) => {
     
 }
 
