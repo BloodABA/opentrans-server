@@ -3,7 +3,9 @@ const ABAFunc = require('../func');
 const router = require('express').Router();
 
 login = (req, res) => {
-    
+    req.body.username
+    req.body.password
+
 }
 
 register = (req, res) => {
@@ -16,6 +18,7 @@ register = (req, res) => {
 }
 
 find_username = (req, res) => {
+    req.body.email
 }
 
 find_password = (req, res) => {
@@ -23,6 +26,8 @@ find_password = (req, res) => {
 }
 
 find_password_hash = (req, res) => {
+    req.body.password
+    req.body.password_check
 }
 
 profile = (req, res) => {
