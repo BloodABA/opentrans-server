@@ -167,6 +167,7 @@ find_password_hash = (req, res) => {
 
 profile = (req, res) => {
     const username = req.params.username;
+    console.log(req.params);
 
 }
 
@@ -182,22 +183,18 @@ router.post('/login', login);
 router.post('/register', register);
 
 //# 아이디 찾기
-router.post('/findusername', (req, res) => {
-    res.send("SAD");
-});
-
-// find_username
+router.post('/find_username', find_username);
 
 //# 비밀번호 찾기
 router.post('/find_password', find_password);
 
 //# 비밀번호 찾기 + 비밀번호 재설정
-router.post('/find_password/<hash>', find_password_hash);
+router.post('/find_password/:hash', find_password_hash);
 
 //# 프로필 ( 정보 열람 )
-router.get('/<username>', profile);
+router.get('/:username', profile);
 
 //# 프로젝트 리스트
-router.get('/<username>/project', project);
+router.get('/:username/project', project);
 
 module.exports = router;
