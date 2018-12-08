@@ -1,4 +1,5 @@
 const DB_Accounts = require('../models/accounts');
+const JEnum = require('../enum');
 const ABAFunc = require('../func');
 const router = require('express').Router();
 
@@ -161,15 +162,17 @@ find_username = async (req, res) => {
         return;
     }
 
-    const account = account.username; // username
+    const username = account.username; // username
     const hash = ABAFunc.passwordResetHash(); // 랜덤 해시
     const expire = Date.now() + 1800 * 1000; // 30분
 
     
+
+    const url = JEnum.domain + "/find_password/" + hash;
     
     res.send({
         status : true,
-        message : ""
+        message : url
     })
     
 }
