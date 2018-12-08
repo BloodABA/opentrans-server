@@ -74,7 +74,7 @@ App.getProjectList = async (username) => {
 App.getProjectInformation = async (projectUrl) => {
     return await DB_Projects.findOne({
         projectUrl : projectUrl
-    }).exec()    
+    }).exec()
 }
 
 // 이미 존재하는 projectUrl 인가?
