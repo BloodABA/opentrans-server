@@ -8,4 +8,10 @@ App.mongo = {
     // password : "" 
 }
 
+// 최소 100 LINK
+App.minBounty = 100
+
+// 최대 1000000 LINK
+App.maxBounty = 1000000
+
 module.exports = App
