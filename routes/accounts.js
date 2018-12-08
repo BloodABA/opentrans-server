@@ -138,8 +138,19 @@ register = async (req, res) => {
 
 }
 
-find_username = (req, res) => {
-    req.body.email
+find_username = async (req, res) => {
+    const account = await ABAFunc.getUserInformation(req.body.email, "email")
+    if(!account) {
+        res.send({
+            status : false,
+            message : ""
+        })
+        return;
+    }
+    res.send({
+        status : true,
+        message : ""
+    })
 }
 
 find_password = (req, res) => {

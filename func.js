@@ -197,7 +197,7 @@ App.sendMail = (to, title, body) => {
     ]
 
     let transporter = nodemailer.createTransport({
-        service: 'naver',
+        service: 'gmail',
         auth: {
             user: emailInfo[0],
             pass: emailInfo[1]
@@ -205,22 +205,13 @@ App.sendMail = (to, title, body) => {
     });
         
     let mailOptions = {    
-        from: 'TranseOpen <ghsehr1@naver.com>',
+        from: 'helper _ <opentranse@gmail.com>',
         to: to,
         subject: title,
         text: body
     };
     
-    transporter.sendMail(mailOptions, (error, info)=>{    
-        if (error) {
-            transporter.close();
-            return error;
-        }
-        else {
-            transporter.close();
-            return ('Email sent! : ' + info.response);
-        }
-    });
+    transporter.sendMail(mailOptions);
     // return;
 }
 
