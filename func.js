@@ -11,7 +11,11 @@ App.isValidEmail = (email) => {
 
 // username 형식이 맞는지 ( a-z 0-9 - _ )
 App.isValidUsername = (username) => {
-
+    if(username.length < 5 || username.length > 20) {
+        return false;
+    }
+    var re = /^[0-9a-zA-Z_-]+$/
+    return re.test(username);    
 }
 
 // username을 인자로 받아 정보를 리턴한다.
@@ -33,7 +37,7 @@ App.isExistUsername = (username) => {
 
 // 이미 존재하는 email인가?
 App.isExistEmail = (email) => {
-
+    return App.getProjectInformation(email, 'email');
 }
 
 // LINK 지갑 주소가 등록된 사용자인가?
