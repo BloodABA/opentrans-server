@@ -71,7 +71,7 @@ App.getProjectList = async (username) => {
 }
 
 // projectUrl로 프로젝트 정보 가져오기
-App.getProjectInformation = (projectUrl) => {
+App.getProjectInformation = async (projectUrl) => {
     return await DB_Projects.findOne({
         projectUrl : projectUrl
     }).exec()    
