@@ -2,7 +2,8 @@ const App = {}
 
 // 이메일 형식이 맞는지
 App.isValidEmail = (email) => {
-
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
 }
 
 // username 형식이 맞는지 ( a-z 0-9 - _ )
@@ -109,6 +110,7 @@ App.addLanguage = (language) => {
 App.projectAccept = (projectUrl) => {
     
 }
+
 
 // to 에게 title, body를 보낸다.
 App.sendMail = (to, title, body) => {
