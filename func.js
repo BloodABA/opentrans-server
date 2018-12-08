@@ -41,7 +41,7 @@ App.isExistEmail = (email) => {
 
 // LINK 지갑 주소가 등록된 사용자인가?
 App.isRegLinkAddr = (username) => {
-
+    return App.getUserInformation(username).address ? true : false;
 }
 
 // 한 사람의 프로젝트 목록을 가져온다
