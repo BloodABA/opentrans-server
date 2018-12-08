@@ -45,6 +45,11 @@ const Database = new mongoose.Schema({
     address: {
         type : String,
         required : true
+    },
+
+    isAdmin: {
+        tpye : boolean,
+        default : False
     }
 
 });

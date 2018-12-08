@@ -126,7 +126,8 @@ App.isSuperAdmin = (username) => {
 }
 
 // 프로젝트가 Close 가능한 상태인가?
-App.canCloseProject = (projectUrl) => {
+App.canCloseProject = async (projectUrl) => {
+    // return await DB_Accounts.findOne({projectUrl : projectUrl});
     
 }
 
