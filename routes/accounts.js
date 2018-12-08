@@ -13,13 +13,18 @@ login = async (req, res) => {
         })
         return;
     }
-    console.log(accounts.password)
-    console.log(ABAFunc.passwordHash(req.body.password))
+
     if(accounts.password === ABAFunc.passwordHash(req.body.password)) {
+
+        req.session['isLogin'] = true;
+        req.session['username'] = accounts.username;
+        req.session['isAdmin'] = accounts.isAdmin;
+
         res.send({
             status : true,
             message : "로그인 성공"
         })
+
         return;
     }
 
