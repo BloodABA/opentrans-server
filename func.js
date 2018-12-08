@@ -1,4 +1,8 @@
 const DB_Accounts = require('./models/accounts');
+const DB_Projects = require('./models/projects');
+const DB_Translate = require('./models/translate');
+const DB_transLog = require('./models/transLog');
+
 const crypto = require("crypto"); // for 비밀번호 암호화
 
 const App = {}
@@ -47,7 +51,7 @@ App.isRegLinkAddr = (username) => {
 
 // 한 사람의 프로젝트 목록을 가져온다
 App.getProjectList = (username) => {
-
+    return ;
 }
 
 // 이미 존재하는 projectUrl 인가?
