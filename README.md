@@ -88,31 +88,6 @@
 
        - username : string
 
-       - projects ( timestamp unit : ms, bounty unit : cony ) : array
-
-         - ownProject : object
-           - _id : string
-           - url : string
-           - project : string
-           - description : string
-           - bounty : integer
-           - src : string
-           - dest : string
-           - openstamp : integer
-           - closestamp : integer
-           - isOpensource : boolean
-         - inProject : object
-           - _id : string
-           - url : string
-           - project : string
-           - description : string
-           - bounty : integer
-           - src : string
-           - dest : string
-           - openstamp : integer
-           - closestamp : integer
-           - isOpensource : boolean
-
        - heatmap : object *<u>// 잔디밭 날짜별로 0에서 5까지, 최신 365개</u>*
 
          - date : string
@@ -129,18 +104,48 @@
          }
          ```
 
-7. 내 정보 열람 `/profile` : `6. 정보 열람` 참고
+7. 내 정보 열람 `/profile`
 
-   - fullname
-   - biograph
-   - nickname
-   - Username
-   - Contract address
-   - heatmap
+   - **REQUEST**
+     - NULL
 
-8. 프로젝트 목록
+   - **RESPONSE**
 
-9. 
+     - status : true / false
+
+     - data : object
+
+       - nickname : string
+
+       - biograph : string
+
+       - username : string
+
+       - heatmap : object *<u>// 잔디밭 날짜별로 0에서 5까지, 최신 365개</u>*
+
+         - date : string
+         - weight : integer
+
+8. 프로젝트 목록`/project/list/<username>`
+
+   - **REQUEST**
+     - NULL
+   - **RESPONSE**
+     - status : true / false
+     - data : object ( timestamp unit : ms, bounty unit : cony )
+       - _id : string
+       - owner : string
+       - url : string
+       - project : string
+       - description : string
+       - bounty : integer
+       - src : string
+       - dest : string
+       - openstamp : integer
+       - closestamp : integer
+       - isOpensource : boolean
+       - progress : number
+       - visiblity : boolean
 
 ### 프로젝트 관련
 1. 프로젝트 생성
@@ -160,5 +165,7 @@
 5. 
 
 ## 
+
+
 
 ### 프로젝트 
