@@ -128,22 +128,22 @@ App.giveBounty = (projectUrl) => {
 
 // 제출한 문장이 올바른가?
 App.isValidSentence = (sentence) => {
-    
+    //
 }
 
 // translateKey가 올바른가?
 App.isValidTranslateKey = (translateKey) => {
-    
+    //
 }
 
 // 투표한 사용자인가?
 App.isVotedUser = (username, transLogKey) => {
-    
+    //
 }
 
 // 서비스 최고 관리자인가?
 App.isSuperAdmin = (username) => {
-    
+    //
 }
 
 // 프로젝트가 Close 가능한 상태인가?
@@ -151,12 +151,12 @@ App.canCloseProject = (projectUrl) => {
     
 }
 
-// 관리자가 Language 추가
+// Language 추가
 App.addLanguage = (language) => {
-    
+
 }
 
-// 관리자가 프로젝트 생성 허가
+// 프로젝트 생성 허가
 App.projectAccept = (projectUrl) => {
     
 }
