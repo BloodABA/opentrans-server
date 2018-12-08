@@ -2,6 +2,7 @@ const DB_Accounts = require('./models/accounts');
 const DB_Projects = require('./models/projects');
 const DB_Translate = require('./models/translate');
 const DB_transLog = require('./models/transLog');
+const DB_Voted = require('./models/voted');
 const DB_language = require('./models/languages');
 
 const nodemailer = require('nodemailer'); // for Email
@@ -131,14 +132,19 @@ App.isValidSentence = (sentence) => {
     //
 }
 
+// translateKey로 Translate가져오기
+App.getTranslate = (translateKey) => {
+    
+}
+
 // translateKey가 올바른가?
 App.isValidTranslateKey = (translateKey) => {
-    //
+    return !!App.getTranslate(translateKey);
 }
 
 // 투표한 사용자인가?
 App.isVotedUser = (username, transLogKey) => {
-    //
+    
 }
 
 // 서비스 최고 관리자인가?
