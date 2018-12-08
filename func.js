@@ -2,10 +2,12 @@ const DB_Accounts = require('./models/accounts');
 const DB_Projects = require('./models/projects');
 const DB_Translate = require('./models/translate');
 const DB_transLog = require('./models/transLog');
+const DB_language = require('./models/languages');
 
 const nodemailer = require('nodemailer'); // for Email
 const fs = require('fs'); // for Email info
 const crypto = require("crypto"); // for 비밀번호 암호화
+const ABAEnum = require("./enum");
 
 const App = {}
 
@@ -81,13 +83,32 @@ App.isExistProjectURL = async (projectUrl) => {
 
 // bounty 금액이 올바른가?
 App.isValidBounty = (bounty) => {
-    // 1. 0 보다 작은 경우
-    // 2. 0 보다 큰 경우
+
+    if(bounty < ABAEnum.minBounty) {
+        return false;
+    }
+
+    if(bounty > ABAEnum.maxBounty) {
+        return false;
+    }
+
+    return true;
 }
 
 // src -> dest 가 올바른가? ( 영어-영어 안됨 )
-App.isValidLanguage = (src, dest) => {
-    
+App.isValidLanguage = async (src, dest) => {
+
+    if(src === dest) {
+        return false;
+    }
+
+    var src = await DB_language.findById(src).exec()
+    var dest = await DB_language.findById(dest).exec()
+
+    if(!src || !dest) return false;
+
+    return true;    
+
 }
 
 // 총 지급 보상 계산
@@ -107,22 +128,22 @@ App.giveBounty = (projectUrl) => {
 
 // 제출한 문장이 올바른가?
 App.isValidSentence = (sentence) => {
-    
+    //
 }
 
 // translateKey가 올바른가?
 App.isValidTranslateKey = (translateKey) => {
-    
+    //
 }
 
 // 투표한 사용자인가?
 App.isVotedUser = (username, transLogKey) => {
-    
+    //
 }
 
 // 서비스 최고 관리자인가?
 App.isSuperAdmin = (username) => {
-    
+    //
 }
 
 // 프로젝트가 Close 가능한 상태인가?
@@ -131,16 +152,15 @@ App.canCloseProject = async (projectUrl) => {
     
 }
 
-// 관리자가 Language 추가
+// Language 추가
 App.addLanguage = (language) => {
-    
+
 }
 
-// 관리자가 프로젝트 생성 허가
+// 프로젝트 생성 허가
 App.projectAccept = (projectUrl) => {
     
 }
-
 
 // to 에게 title, body를 보낸다.
 App.sendMail = (to, title, body) => {
@@ -153,24 +173,25 @@ App.sendMail = (to, title, body) => {
             user: emailInfo[0],
             pass: emailInfo[1]
         }
-        });
+    });
         
     let mailOptions = {    
         from: 'TranseOpen <ghsehr1@naver.com>',
         to: to,
         subject: title,
         text: body
-        };        
-        
+    };
+    
     transporter.sendMail(mailOptions, (error, info)=>{    
         if (error) {
+            transporter.close();
             return error;
         }
         else {
+            transporter.close();
             return ('Email sent! : ' + info.response);
         }
-        transporter.close();
-        });
+    });
     // return;
 }
 
