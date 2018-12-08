@@ -128,7 +128,7 @@ App.giveBounty = (projectUrl) => {
 
 // 제출한 문장이 올바른가?
 App.isValidSentence = (sentence) => {
-    //
+    return !!sentence;
 }
 
 // translateKey가 올바른가?
