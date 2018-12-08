@@ -16,6 +16,6 @@ App.maxBounty = 1000000
 
 // GMAIL
 App.gmailUsername = "opentranse@gmail.com";
-App.gmailPassword = "opentranse1004";
+App.gmailPassword = "";
 
 module.exports = App
