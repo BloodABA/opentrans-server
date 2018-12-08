@@ -1,5 +1,5 @@
 const DB_Accounts = require('../models/accounts');
-const JFunc = require('../function');
+const JFunc = require('../func');
 const router = require('express').Router();
 
 login = (req, res) => {
