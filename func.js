@@ -138,8 +138,8 @@ App.isValidSentence = (sentence) => {
 }
 
 // translateKey로 Translate가져오기
-App.getTranslate = (translateKey) => {
-    
+App.getTranslate = async (translateKey) => {
+    return await DB_Translate.findById(translateKey).exec()
 }
 
 // translateKey가 올바른가?
