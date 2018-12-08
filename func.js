@@ -6,6 +6,7 @@ const DB_transLog = require('./models/transLog');
 const nodemailer = require('nodemailer'); // for Email
 const fs = require('fs'); // for Email info
 const crypto = require("crypto"); // for 비밀번호 암호화
+const ABAEnum = require("./enum");
 
 const App = {}
 
@@ -81,8 +82,16 @@ App.isExistProjectURL = async (projectUrl) => {
 
 // bounty 금액이 올바른가?
 App.isValidBounty = (bounty) => {
-    // 1. 0 보다 작은 경우
-    // 2. 0 보다 큰 경우
+
+    if(bounty < ABAEnum.minBounty) {
+        return false;
+    }
+
+    if(bounty > ABAEnum.maxBounty) {
+        return false;
+    }
+
+    return true;
 }
 
 // src -> dest 가 올바른가? ( 영어-영어 안됨 )
