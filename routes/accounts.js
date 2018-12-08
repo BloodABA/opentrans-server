@@ -207,14 +207,7 @@ find_password = async (req, res) => {
 
 find_password_hash = (req, res) => {
 
-<<<<<<< HEAD
-profile = async (req, res) => {
-    const username = req.params.username;
-    userInfo = await ABAFunc.getUserInformation(username)
-    if(userInfo){
-=======
     if(!req.body.password) {
->>>>>>> e9792109cdbcd501da320d354f66f7e454723d4c
         res.send({
             status : false,
             message : "비밀번호를 입력해주세요."
