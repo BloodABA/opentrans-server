@@ -77,7 +77,7 @@ register = (req, res) => {
         req.body.contract = "";
     }
 
-    if(ABAFunc.isValidEmail(req.body.email)) {
+    if(!ABAFunc.isValidEmail(req.body.email)) {
         res.send({
             status : false,
             message : "이메일 형식이 올바르지 않습니다."
@@ -85,7 +85,7 @@ register = (req, res) => {
         return;
     }
 
-    if(ABAFunc.isValidUsername(req.body.username)) {
+    if(!ABAFunc.isValidUsername(req.body.username)) {
         res.send({
             status : false,
             message : "Username은 5~20자로 영어 소문자와 숫자, 하이픈(-), 언더바(_)만 사용가능합니다."
