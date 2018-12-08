@@ -159,10 +159,26 @@
 
 ### 번역
 1. 번역 문장 제출
+
+   - **REQUEST**
+     - TranslateKey : string
+     - Username : string
+     - Transe : string
+   - **RESPONSE**
+     - True / False
 2. 번역 문장 삭제
+   - **REQUEST**
+     - TranslateKey : string
+     - Username : string
+     - Transe : string
+   - **RESPONSE**
+     - True / False
 3. 번역 문장 투표
-4. 번역 문장 검색
-5. 
+   - **REQUEST**
+     - Username : string
+   - **RESPONSE**
+     - NULL
+4. 관리자 채택
 
 ## 
 
