@@ -18,4 +18,4 @@ Database.index({
     translateKey : 1
 })
 
-module.exports = mongoose.model('transLog', Database);
+module.exports = mongoose.model('language', Database);
