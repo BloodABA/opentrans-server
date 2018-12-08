@@ -1,3 +1,5 @@
+const DB_Accounts = require('./models/accounts');
+
 const App = {}
 
 // 이메일 형식이 맞는지
@@ -13,17 +15,19 @@ App.isValidUsername = (username) => {
 
 // username을 인자로 받아 정보를 리턴한다.
 // email을 인자로 받아 정보를 리턴한다. 
-App.getUserInformation = (search, type='username') => {
-    if(type !== 'email') {
+App.getUserInformation = async (search, type='username') => {
+    if(type === 'email') {
         // email로 Search
+        return await DB_Accounts.findOne({ email : search }).exec()
     } else {
         // username으로 Search
+        return await DB_Accounts.findOne({ username : search }).exec()
     }
 }
 
 // 이미 존재하는 username인가?
 App.isExistUsername = (username) => {
-
+    return App.getProjectInformation(username, 'username');
 }
 
 // 이미 존재하는 email인가?
