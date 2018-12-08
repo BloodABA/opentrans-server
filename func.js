@@ -153,8 +153,8 @@ App.isVotedUser = (username, transLogKey) => {
 }
 
 // 서비스 최고 관리자인가?
-App.isSuperAdmin = (username) => {
-    //
+App.isSuperAdmin = async (username) => {
+    return await DB_Accounts.findById(username).exec();
 }
 
 // 프로젝트가 Close 가능한 상태인가?
