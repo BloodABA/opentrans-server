@@ -60,7 +60,7 @@ app.use("/", require('./routes/index'))
 
 // @PAGE : /accounts
 // @description : 계정 관련 페이지
-app.use("/accounts", require('./routes/accounts'))
+app.use("/account", require('./routes/accounts'))
 
 /******** Page Routing END *****/
 

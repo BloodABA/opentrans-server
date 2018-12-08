@@ -2,6 +2,10 @@ const DB_Accounts = require('../models/accounts');
 const ABAFunc = require('../func');
 const router = require('express').Router();
 
+//#################//
+//##### LOGIN #####//
+//#################//
+
 login = async (req, res) => {
 
     let accounts = await ABAFunc.getUserInformation(req.body.username);
@@ -35,6 +39,10 @@ login = async (req, res) => {
 
     return;
 }
+
+//#################//
+//##### REGIST ####//
+//#################//
 
 register = async (req, res) => {
 
@@ -138,8 +146,32 @@ register = async (req, res) => {
 
 }
 
-find_username = (req, res) => {
-    req.body.email
+//#################//
+//#FIND USERNAME ##//
+//#################//
+
+find_username = async (req, res) => {
+
+    const account = await ABAFunc.getUserInformation(req.body.email, "email")
+    if(!account) {
+        res.send({
+            status : false,
+            message : ""
+        })
+        return;
+    }
+
+    const username = account.username; // username
+    const hash = ABAFunc.passwordResetHash(); // 랜덤 해시
+    const expire = Date.now() + 1800 * 1000; // 30분
+
+    
+    
+    res.send({
+        status : true,
+        message : ""
+    })
+    
 }
 
 find_password = (req, res) => {
@@ -154,29 +186,29 @@ find_password_hash = (req, res) => {
 profile = async (req, res) => {
     const username = req.params.username;
     userInfo = await ABAFunc.getUserInformation(username)
-    res.send({
-        status:true
-    })
-    return;
-    // if(userInfo){
-    //     res.send({
-    //         status : true,
-    //         data :{
-    //             nickname : userInfo.nickname,
-    //             biograph : userInfo.biograph,
-    //             username : userInfo.username,
-    //             contract : userInfo.contract,
-    //             heatmap : {}
-    //         } 
-    //     })
-    //     return;
-    // }
-    // else{
-    //     res.send({
-    //         status : false
-    //     })
-    //     return;
-    // }
+    // res.send({
+    //     status:true
+    // })
+    // return;
+    if(userInfo){
+        res.send({
+            status : true,
+            data :{
+                nickname : userInfo.nickname,
+                biograph : userInfo.biograph,
+                username : userInfo.username,
+                contract : userInfo.contract,
+                heatmap : {}
+            } 
+        })
+        return;
+    }
+    else{
+        res.send({
+            status : false
+        })
+        return;
+    }
 
 }
 
@@ -199,12 +231,12 @@ router.post('/find_username', find_username);
 router.post('/find_password', find_password);
 
 //# 비밀번호 찾기 + 비밀번호 재설정
-router.post('/find_password/<hash>', find_password_hash);
+router.post('/find_password/:hash', find_password_hash);
 
 //# 프로필 ( 정보 열람 )
-router.get('/<username>', profile);
+router.get('/:username', profile);
 
 //# 프로젝트 리스트
-router.get('/<username>/project', project);
+router.get('/:username/project', project);
 
 module.exports = router;
