@@ -160,7 +160,9 @@ App.canCloseProject = async (projectUrl) => {
 
 // Language 추가
 App.addLanguage = (language) => {
-
+    DB_language.create({
+        language : language
+    })
 }
 
 // 프로젝트 생성 허가
@@ -171,7 +173,10 @@ App.projectAccept = (projectUrl) => {
 // to 에게 title, body를 보낸다.
 App.sendMail = (to, title, body) => {
 
-    let emailInfo = fs.readFileSync('./emailInfo.txt').toString().split("\n");
+    let emailInfo = [
+        ABAEnum.gmailUsername,
+        ABAEnum.gmailPassword
+    ]
 
     let transporter = nodemailer.createTransport({
         service: 'naver',
