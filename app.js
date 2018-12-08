@@ -17,6 +17,21 @@ app.all('/*', function(req, res, next) {
     next();
 });
 
+app.all('/*', function(req, res, next) {
+    var keys = [];
+    keys = Object.keys(req.body);
+    var flag = false;
+    for(let i=0;i<keys.length;i++) {
+        if(typeof req.body[keys[i]] !== 'string') {
+            flag = true;
+        }
+    }
+    if(flag) {
+        res.send("Only STRING")
+    }
+    next();
+});
+
 app.use(session({
     secret: 'Seesion_Scret_Code',
     resave: false,
