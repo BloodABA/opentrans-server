@@ -32,12 +32,108 @@ login = (req, res) => {
 }
 
 register = (req, res) => {
+
+    if(!req.body.fullname) {
+        res.send({
+            status : false,
+            message : "실명을 입력해주세요."
+        })
+        return;
+    }
+    
+    if(!req.body.nickname) {
+        res.send({
+            status : false,
+            message : "별명을 입력해주세요."
+        })
+        return;
+    }
+
+    if(!req.body.email) {
+        res.send({
+            status : false,
+            message : "이메일을 작성해주세요."
+        })
+        return;
+    }
+
+    if(!req.body.username) {
+        res.send({
+            status : false,
+            message : "Username을 입력해주세요."
+        })
+        return;
+    }
+
+    if(!req.body.password) {
+        res.send({
+            status : false,
+            message : "Password가 입력되지 않았습니다."
+        })
+        return;
+    }
+
+    if(!req.body.contract || !ABAFunc.isCorrectAddress(req.body.contract)) {
+        req.body.contract = "";
+    }
+
+    if(ABAFunc.isValidEmail(req.body.email)) {
+        res.send({
+            status : false,
+            message : "이메일 형식이 올바르지 않습니다."
+        })
+        return;
+    }
+
+    if(ABAFunc.isValidUsername(req.body.username)) {
+        res.send({
+            status : false,
+            message : "Username은 5~20자로 영어 소문자와 숫자, 하이픈(-), 언더바(_)만 사용가능합니다."
+        })
+        return;
+    }
+
+    if(ABAFunc.isExistEmail(req.body.email)) {
+        res.send({
+            status : false,
+            message : "이미 존재하는 이메일입니다."
+        })
+        return;
+    }
+
+    if(!ABAFunc.isExistUsername(req.body.username)) {
+        res.send({
+            status : false,
+            message : "이미 존재하는 Username 입니다."
+        })
+        return;
+    }
+
     req.body.fullname
     req.body.nickname
     req.body.email
     req.body.username
-    req.body.password
+    req.body.password = ABAFunc.passwordHash(req.body.password)
     req.body.contract
+
+    DB_Accounts.create({
+        fullname : req.body.fullname,
+        nickname : req.body.nickname,
+        biograph : req.body.biograph,
+        email : req.body.email,
+        username : req.body.username,
+        password : req.body.password,
+        address : req.body.address
+    }).then(results => {
+        res.send({
+            status : true,
+            message : "회원가입을 축하합니다."
+        })
+    }).catch(error => {
+        console.error(error);
+        res.send(500)
+    })
+
 }
 
 find_username = (req, res) => {
