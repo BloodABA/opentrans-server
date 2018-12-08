@@ -14,4 +14,8 @@ App.minBounty = 100
 // 최대 1000000 LINK
 App.maxBounty = 1000000
 
+// GMAIL
+App.gmailUsername = "";
+App.gmailPassword = "";
+
 module.exports = App

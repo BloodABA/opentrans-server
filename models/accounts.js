@@ -49,7 +49,7 @@ const Database = new mongoose.Schema({
 
     isAdmin: {
         type : Boolean,
-        default : False
+        default : false
     }
 
 });
