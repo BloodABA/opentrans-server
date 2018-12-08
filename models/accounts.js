@@ -8,6 +8,18 @@ const Database = new mongoose.Schema({
         required : true
     },
 
+    // Nickname 
+    nickname : {
+        type : String,
+        required : true
+    },
+
+    // 소개글
+    biograph : {
+        type : String,
+        required : true
+    },
+
     // 이메일, Unique 해야함
     email: {
         type : String,
