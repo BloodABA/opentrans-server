@@ -1,17 +1,25 @@
 const DB_Accounts = require('../models/accounts');
-const JFunc = require('../func');
+const ABAFunc = require('../func');
 const router = require('express').Router();
 
 login = (req, res) => {
+    
 }
 
 register = (req, res) => {
+    req.body.fullname
+    req.body.nickname
+    req.body.email
+    req.body.username
+    req.body.password
+    req.body.contract
 }
 
 find_username = (req, res) => {
 }
 
 find_password = (req, res) => {
+    req.body.email
 }
 
 find_password_hash = (req, res) => {
