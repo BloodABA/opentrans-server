@@ -196,8 +196,7 @@
      - message : string
 
 ### 번역
-1. 번역 문장 제출
-
+1. `post`번역 문장 제출 `/translate/LogSubmit`
    - **REQUEST**
      - TranslateKey : string
      - Username : string
@@ -206,32 +205,28 @@
      - status : boolean
      - message : string
 
-2. 번역 문장 삭제
+2. `post`번역 문장 삭제 `/translate/LogDelete`
    - **REQUEST**
      - TranslateKey : string
      - Username : string
+   - **RESPONSE**
+     - status : boolean
+     - message : string
+3. `post`번역 문장 투표 `/translate/LogVote`
+   - **REQUEST**
+     - Username : string
+   - **RESPONSE**
+     - status : boolean
+     - message : string
+4. `post`관리자 채택 `/translate/LogPickOut`
+   - **REQUEST**
+     - Username : string
+   - **RESPONSE**
+     - status : boolean
+     - message : string
+5. `post` 번역 문장 검색 `/translate/LogSearch`
+   - **REQUEST**
      - Transe : string
-   - **RESPONSE**
-     - status : boolean
-     - message : string
-
-3. 번역 문장 투표
-   - **REQUEST**
-     - Username : string
-   - **RESPONSE**
-     - status : boolean
-     - message : string
-
-4. 관리자 채택
-   - **REQUEST**
-     - Username : string
-   - **RESPONSE**
-     - status : boolean
-     - message : string
-
-5. 번역 문장 검색
-   - **REQUEST**
-     - Username : string
    - **RESPONSE**
      - status : boolean
      - message : string
