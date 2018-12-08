@@ -50,9 +50,19 @@ App.isRegLinkAddr = (username) => {
 }
 
 // 한 사람의 프로젝트 목록을 가져온다
-App.getProjectList = (username) => {
-    DB_transLog.find({owner:username})
-    return;
+App.getProjectList = async (username) => {
+    const transLogs = await DB_transLog.find({owner:username})
+        .sort({
+            project : 1,
+        }).exec();
+    const projects = [];
+    let lastProject = "";
+    for(let i=0;i<transLogs.length;i++) {
+        if(lastProject !== transLogs[i].project) {
+            projects.push(transLogs[i].project)
+        }
+    }
+    return lastProject;
 }
 
 // 이미 존재하는 projectUrl 인가?

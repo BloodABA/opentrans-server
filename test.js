@@ -1,10 +1,8 @@
 const ABAFunc = require('./func')
 
-<<<<<<< HEAD
 
 console.log(ABAFunc.passwordHash());
 console.log(ABAFunc.passwordResetHash("1234"));
-=======
 console.log(ABAFunc.passwordResetHash("1234"));
 // console.log("Email Validate")
 // console.log(ABAFunc.isValidEmail("JTJISGOD"));
@@ -23,4 +21,3 @@ console.log(ABAFunc.isValidUsername("jtj0is-god"))
 console.log(ABAFunc.isValidUsername("jt0ji_sgod"))
 
 // console.log(ABAFunc.passwordHash("JTJISGOD"));
->>>>>>> d70ebf4131c30b9d1b290754401a5ee1c622f949
