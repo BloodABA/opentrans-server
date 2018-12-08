@@ -25,7 +25,7 @@ const Database = new mongoose.Schema({
     },
 
     // 번역 전 문장
-    source : {
+    src : {
         type : String,
         required : true
     },
