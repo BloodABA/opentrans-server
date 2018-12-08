@@ -198,17 +198,57 @@ find_password = async (req, res) => {
     
     res.send({
         status : true,
-        message : url
+        message : "이메일로 비밀번호 초기화 페이지 주소를 전송하였습니다."
+    })
+
+    // 나중에 바꿀 것
+    ABAFunc.sendMail(account.email, "[OpenTrans] Password Reset", "Password reset page is `" + url + "`");
+}
+
+find_password_hash = (req, res) => {
+
+    if(!req.body.password) {
+        res.send({
+            status : false,
+            message : "비밀번호를 입력해주세요."
+        })
+        return;
+    }
+
+    if(req.body.password !== req.body.password_check) {
+        res.send({
+            status : false,
+            message : "입력하신 두 비밀번호가 서로 같지 않습니다."
+        })
+        return;
+    }
+
+    DB_PasswordReset.findOne({
+        hash : req.params.hash
+    }).then(result => {
+
+        const username = result.username;
+        req.body.password = ABAFunc.passwordHash(req.body.password);       
+        DB_Accounts.updateOne({
+                username : username
+            }, {
+                $set : {
+                    password : req.body.password
+                }
+            }
+        ).then(r => {
+            res.send({
+                status : true,
+                message : "비밀번호 변경이 완료되었습니다."
+            })
+        })
+        
     })
 
 }
 
-find_password_hash = (req, res) => {
-    req.body.password
-    req.body.password_check
-}
-
 profile = async (req, res) => {
+
     const username = req.params.username;
     userInfo = await ABAFunc.getUserInformation(username)
 
