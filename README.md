@@ -149,6 +149,7 @@
 
 ### 프로젝트 관련
 1. `POST` 프로젝트 생성 `/project/create`
+
    - **REQUEST**
      - project : string
      - projectUrl : string
@@ -163,7 +164,9 @@
    - **RESPONSE**
      - status : boolean
      - message : string
+
 2. `GET` 프로젝트 열람 `/project/<projectUrl>`
+
    - **REQUEST**
      - NULL
    - **RESPONSE**
@@ -182,9 +185,34 @@
        - isOpensource : boolean
        - progress : number
        - visiblity : boolean
-3. `POST` 프로젝트 수정
-4. `POST` 프로젝트 삭제
-5. `POST ` 중간 결산 = 바운티 지급
+
+3. `POST` 프로젝트 수정 `/project/modify`
+
+   - **REQUEST**
+     - NULL
+   - **RESPONSE**
+     - status : boolean
+     - message : string
+
+4. `POST` 프로젝트 종료 `/project/close`
+
+   남아있는 모든 번역 완료 및 보상을 지급 후 프로젝트를 닫는다.
+
+   - **REQUEST**
+     - NULL
+   - **RESPONSE**
+     - status : boolean
+     - message : string
+
+5. `POST ` 중간 결산 = 바운티 지급 `/project/`
+
+   지급해야 하는(Accept 되어 지급 대기중인)모든 보상들을 지급한다.
+
+   - **REQUEST**
+     - NULL
+   - **RESPONSE****
+     - status : boolean
+     - message : string
 
 ### 번역
 1. 번역 문장 제출
