@@ -151,13 +151,38 @@ find_password_hash = (req, res) => {
     req.body.password_check
 }
 
-profile = (req, res) => {
+profile = async (req, res) => {
     const username = req.params.username;
+    userInfo = await ABAFunc.getUserInformation(username)
+    res.send({
+        status:true
+    })
+    return;
+    // if(userInfo){
+    //     res.send({
+    //         status : true,
+    //         data :{
+    //             nickname : userInfo.nickname,
+    //             biograph : userInfo.biograph,
+    //             username : userInfo.username,
+    //             contract : userInfo.contract,
+    //             heatmap : {}
+    //         } 
+    //     })
+    //     return;
+    // }
+    // else{
+    //     res.send({
+    //         status : false
+    //     })
+    //     return;
+    // }
 
 }
 
 project = (req, res) => {
     const username = req.params.username;
+    
 
 }
 
