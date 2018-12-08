@@ -13,9 +13,7 @@ const Database = new mongoose.Schema({
 });
 
 Database.index({
-    project : 1,
-    owner : 1,
-    translateKey : 1
+    language : 1
 })
 
 module.exports = mongoose.model('language', Database);
