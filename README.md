@@ -70,7 +70,7 @@
      - status : true / false
      - message : string
 
-6. `get` 정보 열람 `/profile/<username>`
+6. `GET` 정보 열람 `/profile/<username>`
 
    - **REQUEST**
 
@@ -104,7 +104,7 @@
          }
          ```
 
-7. 내 정보 열람 `/profile`
+7. `GET` 내 정보 열람 `/profile`
 
    - **REQUEST**
      - NULL
@@ -126,7 +126,7 @@
          - date : string
          - weight : integer
 
-8. 프로젝트 목록`/project/list/<username>`
+8. `GET` 프로젝트 목록`/project/list/<username>`
 
    - **REQUEST**
      - NULL
@@ -148,14 +148,43 @@
        - visiblity : boolean
 
 ### 프로젝트 관련
-1. 프로젝트 생성
-2. 프로젝트 열람
-3. 프로젝트 수정
-4. 프로젝트 삭제
-5. 바운티 지급
- - 바운티 버튼 클릭시
- - 
-
+1. `POST` 프로젝트 생성 `/project/create`
+   - **REQUEST**
+     - project : string
+     - projectUrl : string
+       - 중복 불가능
+     - description : string
+     - isOpensource : boolean
+     - bounty
+       - isOpensource = true 라면 필요 없음
+     - src : string
+     - dest : string
+     - visibility : boolean
+   - **RESPONSE**
+     - status : boolean
+     - message : string
+2. `GET` 프로젝트 열람 `/project/<projectUrl>`
+   - **REQUEST**
+     - NULL
+   - **RESPONSE**
+     - status : boolean
+     - data : object
+       - _id : string
+       - owner : string
+       - url : string
+       - project : string
+       - description : string
+       - bounty : integer
+       - src : string
+       - dest : string
+       - openstamp : integer
+       - closestamp : integer
+       - isOpensource : boolean
+       - progress : number
+       - visiblity : boolean
+3. `POST` 프로젝트 수정
+4. `POST` 프로젝트 삭제
+5. `POST ` 중간 결산 = 바운티 지급
 
 ### 번역
 1. 번역 문장 제출

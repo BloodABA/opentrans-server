@@ -17,6 +17,13 @@ const Database = new mongoose.Schema({
         required : true
     },
 
+    // 문장 LINE
+    line : {
+        type : Number,
+        index : 1,
+        required : true
+    },
+
     // 번역 전 문장
     source : {
         type : String,
@@ -64,7 +71,8 @@ const Database = new mongoose.Schema({
 // 검색을 위해 많은 양을 Index처리함
 Database.index({
     project : 1,
-    isTrans : 1
+    isTrans : 1,
+    line : 1
 })
 
 module.exports = mongoose.model('translate', Database);
