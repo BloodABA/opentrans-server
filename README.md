@@ -70,7 +70,7 @@
      - status : true / false
      - message : string
 
-6. `get` 정보 열람 `/profile/<username>`
+6. `GET` 정보 열람 `/profile/<username>`
 
    - **REQUEST**
 
@@ -87,6 +87,8 @@
        - biograph : string
 
        - username : string
+
+       - contract : string
 
        - heatmap : object *<u>// 잔디밭 날짜별로 0에서 5까지, 최신 365개</u>*
 
@@ -104,29 +106,7 @@
          }
          ```
 
-7. 내 정보 열람 `/profile`
-
-   - **REQUEST**
-     - NULL
-
-   - **RESPONSE**
-
-     - status : true / false
-
-     - data : object
-
-       - nickname : string
-
-       - biograph : string
-
-       - username : string
-
-       - heatmap : object *<u>// 잔디밭 날짜별로 0에서 5까지, 최신 365개</u>*
-
-         - date : string
-         - weight : integer
-
-8. 프로젝트 목록`/project/list/<username>`
+7. `GET` 프로젝트 목록`/project/list/<username>`
 
    - **REQUEST**
      - NULL
@@ -147,15 +127,73 @@
        - progress : number
        - visiblity : boolean
 
-### 프로젝트 관련
-1. 프로젝트 생성
-2. 프로젝트 열람
-3. 프로젝트 수정
-4. 프로젝트 삭제
-5. 바운티 지급
- - 바운티 버튼 클릭시
- - 
 
+### 프로젝트 관련
+1. `POST` 프로젝트 생성 `/project/create`
+
+   - **REQUEST**
+     - project : string
+     - projectUrl : string
+       - 중복 불가능
+     - description : string
+     - isOpensource : boolean
+     - bounty
+       - isOpensource = true 라면 필요 없음
+     - src : string
+     - dest : string
+     - visibility : boolean
+   - **RESPONSE**
+     - status : boolean
+     - message : string
+
+2. `GET` 프로젝트 열람 `/project/<projectUrl>`
+
+   - **REQUEST**
+     - NULL
+   - **RESPONSE**
+     - status : boolean
+     - data : object
+       - _id : string
+       - owner : string
+       - url : string
+       - project : string
+       - description : string
+       - bounty : integer
+       - src : string
+       - dest : string
+       - openstamp : integer
+       - closestamp : integer
+       - isOpensource : boolean
+       - progress : number
+       - visiblity : boolean
+
+3. `POST` 프로젝트 수정 `/project/modify`
+
+   - **REQUEST**
+     - NULL
+   - **RESPONSE**
+     - status : boolean
+     - message : string
+
+4. `POST` 프로젝트 종료 `/project/close`
+
+   남아있는 모든 번역 완료 및 보상을 지급 후 프로젝트를 닫는다.
+
+   - **REQUEST**
+     - NULL
+   - **RESPONSE**
+     - status : boolean
+     - message : string
+
+5. `POST ` 중간 결산 = 바운티 지급 `/project/`
+
+   지급해야 하는(Accept 되어 지급 대기중인)모든 보상들을 지급한다.
+
+   - **REQUEST**
+     - NULL
+   - **RESPONSE****
+     - status : boolean
+     - message : string
 
 ### 번역
 1. 번역 문장 제출
@@ -174,11 +212,15 @@
    - **RESPONSE**
      - True / False
 3. 번역 문장 투표
+<<<<<<< HEAD
    - **REQUEST**
      - Username : string
    - **RESPONSE**
      - NULL
 4. 관리자 채택
+=======
+4. 번역 문장 검색
+>>>>>>> 631c170bbccab12b3976d8f4ae6b1f1e43d5474c
 
 ## 
 
