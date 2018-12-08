@@ -1,4 +1,5 @@
 const DB_Accounts = require('../models/accounts');
+const DB_PasswordReset = require('../models/passwordReset');
 const JEnum = require('../enum');
 const ABAFunc = require('../func');
 const router = require('express').Router();
@@ -154,10 +155,31 @@ register = async (req, res) => {
 find_username = async (req, res) => {
 
     const account = await ABAFunc.getUserInformation(req.body.email, "email")
+
     if(!account) {
         res.send({
             status : false,
-            message : ""
+            message : "존재하지 않는 이메일입니다."
+        })
+        return;
+    }
+
+    res.send({
+        status : true,
+        message : "이메일로 username을 전송하였습니다."
+    })
+
+    ABAFunc.sendMail(account.email, "[OpenTrans] Username", "Your username is `" + account.username + "`");
+    
+}
+
+find_password = async (req, res) => {
+
+    const account = await ABAFunc.getUserInformation(req.body.email, "email")
+    if(!account) {
+        res.send({
+            status : false,
+            message : "존재하지 않는 이메일입니다."
         })
         return;
     }
@@ -166,7 +188,11 @@ find_username = async (req, res) => {
     const hash = ABAFunc.passwordResetHash(); // 랜덤 해시
     const expire = Date.now() + 1800 * 1000; // 30분
 
-    
+    DB_PasswordReset.create({
+        username : username,
+        hash : hash,
+        expire : expire
+    })
 
     const url = JEnum.domain + "/find_password/" + hash;
     
@@ -174,11 +200,7 @@ find_username = async (req, res) => {
         status : true,
         message : url
     })
-    
-}
 
-find_password = (req, res) => {
-    req.body.email
 }
 
 find_password_hash = (req, res) => {
@@ -189,30 +211,25 @@ find_password_hash = (req, res) => {
 profile = async (req, res) => {
     const username = req.params.username;
     userInfo = await ABAFunc.getUserInformation(username)
-    // res.send({
-    //     status:true
-    // })
-    // return;
-    if(userInfo){
+
+    if(!userInfo){
         res.send({
-            status : true,
-            data :{
-                nickname : userInfo.nickname,
-                biograph : userInfo.biograph,
-                username : userInfo.username,
-                contract : userInfo.contract,
-                heatmap : {}
-            } 
-        })
-        return;
-    }
-    else{
-        res.send({
-            status : false
+            status : false,
+            message : "존재하지 않는 username입니다."
         })
         return;
     }
 
+    res.send({
+        status : true,
+        data :{
+            nickname : userInfo.nickname,
+            biograph : userInfo.biograph,
+            username : userInfo.username,
+            contract : userInfo.contract,
+            heatmap : {}
+        } 
+    })
 }
 
 project = (req, res) => {

@@ -62,6 +62,10 @@ app.use("/", require('./routes/index'))
 // @description : 계정 관련 페이지
 app.use("/account", require('./routes/accounts'))
 
+// @PAGE : /project
+// @description : 프로젝트
+app.use("/project", require('./routes/projects'))
+
 /******** Page Routing END *****/
 
 var server = app.listen(port, function(){
