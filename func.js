@@ -148,8 +148,11 @@ App.isValidTranslateKey = (translateKey) => {
 }
 
 // 투표한 사용자인가?
-App.isVotedUser = (username, transLogKey) => {
-    
+App.isVotedUser = async (username, transLogKey) => {
+    return !!(await DB_Voted.find({
+        username : username,
+        transLogKey : transLogKey
+    }).exec())
 }
 
 // 서비스 최고 관리자인가?
