@@ -32,12 +32,12 @@ App.getUserInformation = async (search, type='username') => {
 
 // 이미 존재하는 username인가?
 App.isExistUsername = (username) => {
-    return App.getProjectInformation(username, 'username');
+    return App.getProjectInformation(username, 'username') ? true : false;
 }
 
 // 이미 존재하는 email인가?
 App.isExistEmail = (email) => {
-    return App.getProjectInformation(email, 'email');
+    return App.getProjectInformation(email, 'email') ? true : false;
 }
 
 // LINK 지갑 주소가 등록된 사용자인가?
