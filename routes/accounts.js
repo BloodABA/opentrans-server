@@ -2,6 +2,10 @@ const DB_Accounts = require('../models/accounts');
 const ABAFunc = require('../func');
 const router = require('express').Router();
 
+//#################//
+//##### LOGIN #####//
+//#################//
+
 login = async (req, res) => {
 
     let accounts = await ABAFunc.getUserInformation(req.body.username);
@@ -35,6 +39,10 @@ login = async (req, res) => {
 
     return;
 }
+
+//#################//
+//##### REGIST ####//
+//#################//
 
 register = async (req, res) => {
 
@@ -138,6 +146,10 @@ register = async (req, res) => {
 
 }
 
+//#################//
+//#FIND USERNAME ##//
+//#################//
+
 find_username = async (req, res) => {
 
     const account = await ABAFunc.getUserInformation(req.body.email, "email")
@@ -148,6 +160,12 @@ find_username = async (req, res) => {
         })
         return;
     }
+
+    const account = account.username; // username
+    const hash = ABAFunc.passwordResetHash(); // 랜덤 해시
+    const expire = Date.now() + 1800 * 1000; // 30분
+
+    
     
     res.send({
         status : true,
