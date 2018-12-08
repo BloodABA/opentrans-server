@@ -37,14 +37,14 @@ const Database = new mongoose.Schema({
 
     // 출발 언어
     src : {
-        type : Number,
+        type : String,
         required : true,
         index : 1 
     },
 
     // 목적어 언어
     dest : {
-        type : Number,
+        type : String,
         required : true,
         index : 1 
     },
