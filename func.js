@@ -3,6 +3,8 @@ const DB_Projects = require('./models/projects');
 const DB_Translate = require('./models/translate');
 const DB_transLog = require('./models/transLog');
 
+const nodemailer = require('nodemailer'); // for Email
+const fs = require('fs'); // for Email info
 const crypto = require("crypto"); // for 비밀번호 암호화
 
 const App = {}
@@ -128,7 +130,34 @@ App.projectAccept = (projectUrl) => {
 
 // to 에게 title, body를 보낸다.
 App.sendMail = (to, title, body) => {
-    return;
+
+    let emailInfo = fs.readFileSync('./emailInfo.txt').toString().split("\n");
+
+    let transporter = nodemailer.createTransport({
+        service: 'naver',
+        auth: {
+            user: emailInfo[0],
+            pass: emailInfo[1]
+        }
+        });
+        
+    let mailOptions = {    
+        from: 'TranseOpen <ghsehr1@naver.com>',
+        to: to,
+        subject: title,
+        text: body
+        };        
+        
+    transporter.sendMail(mailOptions, (error, info)=>{    
+        if (error) {
+            return error;
+        }
+        else {
+            return ('Email sent! : ' + info.response);
+        }
+        transporter.close();
+        });
+    // return;
 }
 
 // 비밀번호 단방향 암호화

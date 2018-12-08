@@ -1,6 +1,9 @@
 # Test JS
 test.js
 
+# Mail ID, PW
+emailInfo.txt
+
 # Logs
 logs
 *.log
