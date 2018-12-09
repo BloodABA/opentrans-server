@@ -3,6 +3,8 @@ const DB_Projects = require('../models/projects');
 const ABAFunc = require('../func');
 create = async (req, res) => {
 
+    console.log(req.body);
+
     if(!req.body.project){
         res.send({
             status : false,
@@ -76,7 +78,7 @@ create = async (req, res) => {
     DB_Projects.create({
         project : req.body.project,
         projectUrl : req.body.projectUrl,
-        owner : 'song-c-o',
+        owner : req.session.username,
         description : req.body.description,
         bounty : req.body.bounty,
         src : req.body.src,
@@ -141,30 +143,29 @@ getAllProjectList = async (req,res) => {
         return;
     }
 
-    var projectList = new Array();
-    // for(var projectList in allProjectList){
+    var projectList = [];
     allProjectList.forEach(project => {
-        projectList.push(project)
+        projectList.push({
+            owner : project.owner,//string
+            projectUrl : project.projectUrl,//string
+            project : project.project,//string
+            description : project.description,//string
+            bounty : project.bounty,//integer
+            src : project.src,//string
+            dest : project.dest,//string
+            openstamp : project.openstamp,//integer
+            closestamp : project.closestamp,//integer
+            isOpensource : project.isOpensource,//boolean
+            progress : project.progress,//number
+            visiblity : project.visiblity//boolean
+        })
     });
+
     res.send({
         status : true,
-        data : {
-            test:projectList,
-            _id : projectList._id,//string
-            owner : projectList.owner,//string
-            projectUrl : projectList.projectUrl,//string
-            project : projectList.project,//string
-            description : projectList.description,//string
-            bounty : projectList.bounty,//integer
-            src : projectList.src,//string
-            dest : projectList.dest,//string
-            openstamp : projectList.openstamp,//integer
-            closestamp : projectList.closestamp,//integer
-            isOpensource : projectList.isOpensource,//boolean
-            progress : projectList.progress,//number
-            visiblity : projectList.visiblity//boolean
-        }
+        data : projectList
     })
+
     return;
 }
     

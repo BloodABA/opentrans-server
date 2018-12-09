@@ -39,6 +39,28 @@ app.use(session({
     saveUninitialized: true
 }));
 
+app.all('/*', function(req, res, next) {
+    let flag = false;
+    req.session['isLogin'] = !!req.session['isLogin'];
+    for(let i=0;i<JEnum.NonLoginPage.length;i++) {
+        if(JEnum.NonLoginPage[i].regex.test(req.path)) {
+            for (let j = 0; j < JEnum.NonLoginPage[i].method.length; j++) {
+                if(req.method.toLocaleLowerCase() === JEnum.NonLoginPage[i].method[j].toLowerCase()) {
+                    flag = true;
+                }
+            }
+        }
+    }
+    if(flag || req.session['isLogin']) {
+        next();
+    } else {
+        res.send({
+            status : false,
+            message : "로그인이 필요한 작업입니다."
+        })
+    }
+});
+
 port = JEnum.port
 
 // Mongoose Promise

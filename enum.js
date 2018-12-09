@@ -19,4 +19,20 @@ App.maxBounty = 1000000
 App.gmailUsername = "opentranse@gmail.com";
 App.gmailPassword = "";
 
+// NonLogin page
+App.NonLoginPage = [
+    {
+        method : ["POST", "GET"],
+        regex : /^\/account\/.*/
+    },
+    {
+        method : ["GET"],
+        regex : /^\/project\//
+    },
+    {
+        method : ["GET"],
+        regex : /^\/project\/.*/
+    }
+]
+
 module.exports = App
