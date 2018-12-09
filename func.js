@@ -71,6 +71,11 @@ App.getProjectList = async (username) => {
     return lastProject;
 }
 
+// Get Project list (all)
+App.getAllProjectList = async() => {
+    return await DB_Projects.find().exec();
+}
+
 // projectUrl로 프로젝트 정보 가져오기
 App.getProjectInformation = async (projectUrl) => {
     return await DB_Projects.findOne({
