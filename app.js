@@ -22,12 +22,13 @@ app.all('/*', function(req, res, next) {
     keys = Object.keys(req.body);
     var flag = false;
     for(let i=0;i<keys.length;i++) {
-        if(typeof req.body[keys[i]] !== 'string') {
+        if(typeof req.body[keys[i]] !== 'string' && typeof req.body[keys[i]] !== 'number' && typeof req.body[keys[i]] !== 'boolean') {
             flag = true;
+            break;
         }
     }
     if(flag) {
-        res.send("Only STRING")
+        res.send("Only String / Number / Boolean")
     }
     next();
 });
