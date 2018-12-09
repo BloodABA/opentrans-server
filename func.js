@@ -73,6 +73,7 @@ App.getProjectList = async (username) => {
 
 // Get Project list (all)
 App.getAllProjectList = async() => {
+    // __v key를 제외하고 리턴
     return await DB_Projects.find().exec();
 }
 
