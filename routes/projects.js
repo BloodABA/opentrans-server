@@ -113,6 +113,7 @@ projectOpen = async (req, res) => {
     res.send({
         status : true,
         data:{
+            _id : projInfo._id,
             project : projInfo.project,
             projectUrl : projInfo.projectUrl,
             owner : projInfo.owner,            
@@ -129,6 +130,44 @@ projectOpen = async (req, res) => {
     })
     return;
 }
+
+getAllProjectList = async (req,res) => {
+    const allProjectList = await ABAFunc.getAllProjectList()
+    if(!allProjectList){
+        res.send({
+            status : false,
+            message : "생성된 프로젝트가 없습니다."
+        })
+        return;
+    }
+
+    var projectList = new Array();
+    // for(var projectList in allProjectList){
+    allProjectList.forEach(project => {
+        projectList.push(project)
+    });
+    res.send({
+        status : true,
+        data : {
+            test:projectList,
+            _id : projectList._id,//string
+            owner : projectList.owner,//string
+            projectUrl : projectList.projectUrl,//string
+            project : projectList.project,//string
+            description : projectList.description,//string
+            bounty : projectList.bounty,//integer
+            src : projectList.src,//string
+            dest : projectList.dest,//string
+            openstamp : projectList.openstamp,//integer
+            closestamp : projectList.closestamp,//integer
+            isOpensource : projectList.isOpensource,//boolean
+            progress : projectList.progress,//number
+            visiblity : projectList.visiblity//boolean
+        }
+    })
+    return;
+}
+    
 //# 프로젝트 생성
 router.post('/create', create);
 
@@ -144,6 +183,6 @@ router.get('/:projectUrl',projectOpen);
 // router.post('colse',close);
 
 //# 플랫폼 내 모든 프로젝트 리스트 호출
-// router.get('/',list);
+router.get('/',getAllProjectList);
 
 module.exports = router;
