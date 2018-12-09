@@ -98,12 +98,42 @@ create = async (req, res) => {
 
 }
 
+projectOpen = async (req, res) => {
+    const projectUrl = req.params.projectUrl;
+    projInfo = await ABAFunc.getProjectInformation(projectUrl);
 
+    if(!projInfo){
+        res.send({
+            status : false,
+            message : "존재하지 않는 프로젝트 주소입니다."
+        })
+        return;
+    }
+    
+    res.send({
+        status : true,
+        data:{
+            project : projInfo.project,
+            projectUrl : projInfo.projectUrl,
+            owner : projInfo.owner,            
+            description : projInfo.description,
+            bounty : projInfo.bounty,
+            src : projInfo.src,
+            dest : projInfo.dest,
+            visiblity : projInfo.visiblity,
+            isOpensource : projInfo.isOpensource,
+            openTimestamp : projInfo.openTimestamp,
+            closeTimestamp : projInfo.closeTimestamp,
+            progress : 50 //원래는 투표율 계산해야함. 기능 미구현으로 인한 임시값 50 입력
+        }
+    })
+    return;
+}
 //# 프로젝트 생성
 router.post('/create', create);
 
 //# projectUrl에 해당하는 프로젝트 열람
-// router.get('/:projectUrl',projectUrl);
+router.get('/:projectUrl',projectOpen);
 
 //# [보류] 프로젝트 수정
 // router.post('modify',modify);
