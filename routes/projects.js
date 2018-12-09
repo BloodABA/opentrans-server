@@ -2,7 +2,7 @@ const router = require('express').Router();
 const DB_Projects = require('../models/projects');
 const ABAFunc = require('../func');
 create = async (req, res) => {
-    const username = req.params.username;
+
     if(!req.body.project){
         res.send({
             status : false,
@@ -74,16 +74,16 @@ create = async (req, res) => {
         return;
     }
     DB_Projects.create({
-        project : req.body.project ,
-        projectUrl : req.body.projectUrl ,
-        owner : username ,
-        description : req.body.description ,
-        bounty : req.body.bounty ,
-        src : req.body.src ,
-        dest : req.body.dest ,
-        visibility : req.body.visibility ,
-        // openTimestamp : req.body.openTimestamp ,
-        // closeTimestamp : req.body.closeTimestamp ,
+        project : req.body.project,
+        projectUrl : req.body.projectUrl,
+        owner : 'song-c-o',
+        description : req.body.description,
+        bounty : req.body.bounty,
+        src : req.body.src,
+        dest : req.body.dest,
+        visibility : req.body.visibility,
+        openTimestamp : req.body.openTimestamp,
+        closeTimestamp : req.body.closeTimestamp,
         isOpensource : req.body.isOpensource
     }).then(result => {
         res.send({
@@ -100,7 +100,7 @@ create = async (req, res) => {
 
 
 //# 프로젝트 생성
-router.get('/:username/create', create);
+router.post('/create', create);
 
 //# projectUrl에 해당하는 프로젝트 열람
 // router.get('/:projectUrl',projectUrl);
