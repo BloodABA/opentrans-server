@@ -80,7 +80,7 @@ App.getProjectInformation = async (projectUrl) => {
 
 // 이미 존재하는 projectUrl 인가?
 App.isExistProjectURL = async (projectUrl) => {
-    return App.getProjectInformation(projectUrl) ? true : false
+    return !!(await App.getProjectInformation(projectUrl))
 }
 
 // bounty 금액이 올바른가?
