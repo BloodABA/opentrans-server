@@ -181,6 +181,7 @@ modify = async (req, res) => {
         return;
     }
 
+    //프로젝트 소유자만 프로젝트 수정 가능
     if(req.session.username !== projInfo.owner){
         res.send({
             status : false,
@@ -241,7 +242,8 @@ modify = async (req, res) => {
     DB_Projects.update(
         { projectUrl : req.body.projectUrl },
         {
-            $set:{
+            // $set을 붙이지 않으면 명시된 필드 제외 다 초기화됨
+            $set:{ 
                 project : req.body.project,
                 projectUrl : req.body.projectUrl,
                 owner : req.session.username,
@@ -255,6 +257,7 @@ modify = async (req, res) => {
                 isOpensource : req.body.isOpensource
             }
         },
+        //여러 필드를 한번에 수정할 때
         { multi : true }
     ).then(result => {
         res.send({
