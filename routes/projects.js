@@ -168,7 +168,106 @@ getAllProjectList = async (req,res) => {
 
     return;
 }
-    
+ 
+modify = async (req, res) => {
+    const projectUrl = req.params.projectUrl;
+    projInfo = await ABAFunc.getProjectInformation(projectUrl);
+
+    if(!projInfo){
+        res.send({
+            status : false,
+            message : "존재하지 않는 프로젝트 주소입니다."
+        })
+        return;
+    }
+
+    if(req.session.username !== projInfo.owner){
+        res.send({
+            status : false,
+            message : "프로젝트 소유자가 아닙니다."
+        })
+        return;
+    }
+    if(!req.body.project){
+        res.send({
+            status : false,
+            message : "프로젝트명을 입력해주세요."
+        })
+        return;
+    }
+    if(!req.body.projectUrl){
+        res.send({
+            status : false,
+            message : "URL을 입력해주세요."
+        })
+        return;
+    }
+    if(!req.body.description){
+        res.send({
+            status : false,
+            message : "프로젝트에 대한 설명을 입력해주세요."
+        })
+        return;
+    }
+    if(!req.body.isOpensource){
+        res.send({
+            status : false,
+            message : "오픈소스 여부를 체크해주세요."
+        })
+        return;
+    }
+    if(!req.body.src){
+        res.send({
+            status : false,
+            message : "원문 언어를 선택해주세요."
+        })
+        return;
+    }
+    if(!req.body.dest){
+        res.send({
+            status : false,
+            message : "어떤 언어로 번역할 지 선택해주세요."
+        })
+        return;
+    }
+    if(!req.body.bounty){
+        res.send({
+            status : false,
+            message : "총 바운티를 입력해주세요."
+        })
+        return;
+    }
+
+    DB_Projects.update(
+        { projectUrl : req.body.projectUrl },
+        {
+            $set:{
+                project : req.body.project,
+                projectUrl : req.body.projectUrl,
+                owner : req.session.username,
+                description : req.body.description,
+                bounty : req.body.bounty,
+                src : req.body.src,
+                dest : req.body.dest,
+                visibility : req.body.visibility,
+                openTimestamp : req.body.openTimestamp,
+                closeTimestamp : req.body.closeTimestamp,
+                isOpensource : req.body.isOpensource
+            }
+        },
+        { multi : true }
+    ).then(result => {
+        res.send({
+            status : true,
+            message : "프로젝트가 수정되었습니다."
+        })
+    }).catch(error => {
+        console.error(error);
+        res.send(500)
+    })
+    return;
+
+}
 //# 프로젝트 생성
 router.post('/create', create);
 
@@ -176,7 +275,7 @@ router.post('/create', create);
 router.get('/:projectUrl',projectOpen);
 
 //# [보류] 프로젝트 수정
-// router.post('modify',modify);
+router.post('/:projectUrl/modify',modify);
 
 //# [보류] 프로젝트 삭제 가능한지 체크
 //# 완료조건1. 채택 대기 중 번역문장이 존재하지 않을 것.
