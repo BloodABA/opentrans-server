@@ -89,6 +89,11 @@ app.use("/account", require('./routes/accounts'))
 // @description : 프로젝트
 app.use("/project", require('./routes/projects'))
 
+// @PAGE : /translate
+// @description : 번역 관련
+app.use("/translate", require('./routes/translates'))
+
+
 /******** Page Routing END *****/
 
 var server = app.listen(port, function(){
