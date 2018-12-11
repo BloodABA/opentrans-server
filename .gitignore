@@ -5,6 +5,9 @@ enum.js
 # Mail ID, PW
 emailInfo.txt
 
+# data
+.data
+
 # Logs
 logs
 *.log
