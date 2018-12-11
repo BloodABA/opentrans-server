@@ -170,7 +170,16 @@
 3. `POST` 프로젝트 수정 `/project/modify`
 
    - **REQUEST**
-     - NULL
+     - project : string
+     - projectUrl : string
+       - 중복 불가능
+     - description : string
+     - isOpensource : boolean
+     - bounty
+       - isOpensource = true 라면 필요 없음
+     - src : string
+     - dest : string
+     - visibility : boolean
    - **RESPONSE**
      - status : boolean
      - message : string
@@ -186,7 +195,7 @@
      - message : string
 
 5. `GET` 프로젝트리스트 `/project`
-  
+
    - **REQUEST**
      - NULL
    - **RESPONSE**
