@@ -103,6 +103,14 @@ docKeyRead = (projectUrl, hash) => {
     return rows
 }
 
+module.exports = {
+    docsDownload: docsDownload,
+    docsPull: docsPull,
+    docsList: docsList,
+    docRead: docRead,
+    docKeyRead: docKeyRead
+}
+
 // const projectUrl = "react-native"
 // const gitUrl = "https://github.com/facebook/react-native-website"
 
