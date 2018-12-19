@@ -310,7 +310,12 @@ docsUpdate = (req, res) => {
     return;
 }
 
-
+docsList = (req, res) => {
+    res.send({
+        status : true,
+        data : Docs.docsList(req.params.projectUrl)
+    })
+}
 
 //# 프로젝트 생성
 router.post('/create', create);
@@ -326,6 +331,9 @@ router.post('/:projectUrl/docsApply', docsApply);
 
 //# 문서 업데이트 ( git )
 router.post('/:projectUrl/docsUpdate', docsUpdate);
+
+//# 문서 목록 ( docs list )
+router.get('/:projectUrl/list', docsList);
 
 //# [보류] 프로젝트 삭제 가능한지 체크
 //# 완료조건1. 채택 대기 중 번역문장이 존재하지 않을 것.
