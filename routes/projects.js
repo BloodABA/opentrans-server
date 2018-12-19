@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const DB_Projects = require('../models/projects');
 const ABAFunc = require('../func');
+const document = require('../git')
+
 create = async (req, res) => {
 
     console.log(req.body);
@@ -54,20 +56,6 @@ create = async (req, res) => {
         })
         return;
     }
-    // if(!req.body.openTimestamp){
-    //     res.send({
-    //         status : false,
-    //         message : "프로젝트 오픈 시간을 입력해주세요."
-    //     })
-    //     return;
-    // }
-    // if(!req.body.closeTimestamp){
-    //     res.send({
-    //         status : false,
-    //         message : "프로젝트 마감 시간을 입력해주세요."
-    //     })
-    //     return;
-    // }
     if(await ABAFunc.isExistProjectURL(req.body.projectUrl)) {
         res.send({
             status : false,
