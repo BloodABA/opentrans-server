@@ -17,9 +17,9 @@ const Database = new mongoose.Schema({
         required : true
     },
 
-    // 문장 LINE
-    line : {
-        type : Number,
+    // 문장 key ( DocKey + Key )
+    key : {
+        type : String,
         index : 1,
         required : true
     },
@@ -34,14 +34,12 @@ const Database = new mongoose.Schema({
     dest : {
         type : String,
         default : "",
-        required : true
     },
 
     // 채택 역자
     owner : {
         type : String,
         default : "",
-        required : true
     },
 
     // 채택 비율

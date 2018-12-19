@@ -2,6 +2,7 @@ const router = require('express').Router();
 const ABAFunc = require('../func');
 const DB_translate = require('../models/translate');
 const DB_transLog = require('../models/transLog');
+const Docs = require('../git')
 
 submit = async (req, res) => {
     username = req.session.username;
@@ -11,13 +12,33 @@ router.post('/submit', submit);
 module.exports = router;
 
 
-// 번역
-// post번역 문장 제출 /translate/LogSubmit
-
 // REQUEST
+LogSubmit = (req, res) => {
+    const projectUrl = req.params.projectUrl
+    const docKey = req.body.docKey
+    const tk = req.body.translateKey
+    const tl = req.body.translate
+
+    if(!projectUrl || !docKey || !tk || !tl) {
+        res.send({
+            status: false,
+            message: "모든 항목을 채워주세요~"
+        })
+        return;
+    }
+
+    Docs.docKeyRead(projectUrl, docKey)
+    
+    DB_translate.findById(tk)
+        .then(row => {
+            
+        })
+        .then()
+}
 // TranslateKey : string
-// Username : string
+//// Username : string
 // Transe : string
+
 // RESPONSE
 // status : boolean
 // message : string
@@ -58,3 +79,6 @@ module.exports = router;
 // RESPONSE
 // status : boolean
 // message : string
+
+//# post번역 문장 제출 /translate/:projectUrl/LogSubmit
+router.post('/:projectUrl/LogSubmit', LogSubmit);

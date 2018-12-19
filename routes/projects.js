@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const DB_Projects = require('../models/projects');
+const DB_Translate = require('../models/translate');
 const ABAFunc = require('../func');
 const Docs = require('../git')
 
@@ -279,7 +280,10 @@ docsApply = (req, res) => {
         return;
     }
 
+
     docs.then(() => {
+        return transUpdate(projectUrl)
+    }).then(() => {
         res.send({
             status: true,
             message: "문서 업로드를 성공하였습니다."
@@ -289,10 +293,52 @@ docsApply = (req, res) => {
     return;
 }
 
+async function transUpdate(projectUrl) {
+    const files = Docs.docsMDList(projectUrl);
+    for(let i=0;i<files.length;i++) {
+        const arr = []
+        const file = files[i];
+        const texts = Docs.docKeyRead(projectUrl, file.md5)
+        for(let j=0;j<texts.length;j++) {
+            const text = texts[j];
+            try {
+                if(!text.text) continue;
+                const key = file.md5 + '|' + text.key
+                const row = await DB_Translate.findOne({key: key}).exec()
+                if(!row) {
+                    let flag = false;
+                    for(let k=0;k<arr.length;k++) {
+                        if(key === arr[k].key) {
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if(flag) continue;
+                    arr.push({
+                        project: projectUrl,
+                        isTrans: false,
+                        key: key,
+                        src: text.text,
+                        dest: "",
+                        owner: "",
+                        voteRate: 0,
+                        acceptTransLog: "",
+                        acceptTime: -1
+                    })
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        await DB_Translate.insertMany(arr)
+    }
+}
 
 docsUpdate = (req, res) => {
 
-    var docs = Docs.docsPull(req.params.projectUrl);
+    const projectUrl = req.params.projectUrl;
+
+    var docs = Docs.docsPull(projectUrl);
     if(docs === false) {
         res.send({
             status: false,
@@ -302,12 +348,15 @@ docsUpdate = (req, res) => {
     }
 
     docs.then(() => {
+        return transUpdate(projectUrl)
+    }).then(() => {
         res.send({
             status: true,
             message: "문서를 최신으로 업데이트하였습니다."
         })
+        return;
     })
-    
+
     return;
 }
 
@@ -321,7 +370,7 @@ docsRead = (req, res) => {
         })
         return;
     }
-    // const doc = undefined
+
     const doc = Docs.docKeyRead(req.params.projectUrl, req.params.fileHash)
 
     if(doc === undefined) {

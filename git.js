@@ -104,12 +104,24 @@ function docKeyRead(projectUrl, hash) {
     return rows
 }
 
+function docsMDList(projectUrl) {
+    const rows = []
+    this.docsList(projectUrl).forEach(row => {
+        console.log(row);
+        if(row.path.endsWith(".md")) {
+            rows.push(row)
+        }
+    })
+    return rows;
+}
+
 module.exports = {
     docsDownload: docsDownload,
     docsPull: docsPull,
     docsList: docsList,
     docRead: docRead,
-    docKeyRead: docKeyRead
+    docKeyRead: docKeyRead,
+    docsMDList: docsMDList
 }
 
 // const projectUrl = "react-native"
