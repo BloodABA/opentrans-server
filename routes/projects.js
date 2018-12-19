@@ -289,6 +289,28 @@ docsApply = (req, res) => {
     return;
 }
 
+docsUpdate = (req, res) => {
+
+    var docs = Docs.docsPull(req.params.projectUrl);
+    if(docs === false) {
+        res.send({
+            status: false,
+            message: "오류가 발생하였습니다."
+        })
+        return;
+    }
+
+    docs.then(() => {
+        res.send({
+            status: true,
+            message: "문서를 최신으로 업데이트하였습니다."
+        })
+    })
+    
+    return;
+}
+
+
 
 //# 프로젝트 생성
 router.post('/create', create);
@@ -301,6 +323,9 @@ router.post('/:projectUrl/modify', modify);
 
 //# 문서 업로드 ( git )
 router.post('/:projectUrl/docsApply', docsApply);
+
+//# 문서 업데이트 ( git )
+router.post('/:projectUrl/docsUpdate', docsUpdate);
 
 //# [보류] 프로젝트 삭제 가능한지 체크
 //# 완료조건1. 채택 대기 중 번역문장이 존재하지 않을 것.
