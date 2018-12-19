@@ -28,12 +28,46 @@ LogSubmit = (req, res) => {
     }
 
     Docs.docKeyRead(projectUrl, docKey)
-    
-    DB_translate.findById(tk)
+    const transKey = docKey + "|" + tk
+    DB_translate.findOne({
+        docKey: docKey,
+        key: transKey
+    })
         .then(row => {
-            
+            if(!row) {
+                res.send({
+                    status: false,
+                    message: "에러가 발생하였습니다."
+                })
+                return;
+            }
+            if(row.isTrans) {
+                res.send({
+                    status: false,
+                    message: "이미 다른 제안이 채택된 번역입니다."
+                })
+                return;
+            }
+            return DB_transLog.create({
+                project: projectUrl,
+                translateKey: transKey,
+                owner: req.session.username,
+                trans: tl
+            })
         })
-        .then()
+        .then(() => {
+            res.send({
+                status: true,
+                message: "Okay"
+            })
+        })
+        .catch(e => {
+            console.log(e);
+            res.send({
+                status: false,
+                message: "알 수 없는 에러입니다."
+            })
+        })
 }
 // TranslateKey : string
 //// Username : string

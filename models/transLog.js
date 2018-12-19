@@ -43,13 +43,13 @@ const Database = new mongoose.Schema({
     // Like
     like : {
         type : Number,
-        required : true
+        default: 0
     },
 
     // Dislike
     dislike : {
         type : Number,
-        required : true
+        default: 0
     },
 
 });
