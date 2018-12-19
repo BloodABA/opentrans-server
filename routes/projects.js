@@ -289,6 +289,7 @@ docsApply = (req, res) => {
     return;
 }
 
+
 docsUpdate = (req, res) => {
 
     var docs = Docs.docsPull(req.params.projectUrl);
@@ -310,11 +311,39 @@ docsUpdate = (req, res) => {
     return;
 }
 
+
+docsRead = (req, res) => {
+    console.log(req.params.fileHash)
+    if (!req.params.fileHash || !req.params.projectUrl) {
+        res.send({
+            status: false,
+            data: "오류가 발생하였습니다."
+        })
+        return;
+    }
+    // const doc = undefined
+    const doc = Docs.docKeyRead(req.params.projectUrl, req.params.fileHash)
+
+    if(doc === undefined) {
+        res.send({
+            status: false,
+            data: "Markdown 파일이 아닙니다."
+        })
+    } else {
+        res.send({
+            status: true,
+            data: doc
+        })    
+    }
+    return;
+}
+
 docsList = (req, res) => {
     res.send({
         status : true,
         data : Docs.docsList(req.params.projectUrl)
     })
+    return;
 }
 
 //# 프로젝트 생성
@@ -334,6 +363,9 @@ router.post('/:projectUrl/docsUpdate', docsUpdate);
 
 //# 문서 목록 ( docs list )
 router.get('/:projectUrl/list', docsList);
+
+//# 문서 읽기 ( docs read )
+router.get('/:projectUrl/:fileHash', docsRead);
 
 //# [보류] 프로젝트 삭제 가능한지 체크
 //# 완료조건1. 채택 대기 중 번역문장이 존재하지 않을 것.

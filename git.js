@@ -25,7 +25,7 @@ function getFiles(dir, files_){
 }
 
 // Document 다운로드
-docsDownload = (projectUrl, gitUrl) => {
+function docsDownload(projectUrl, gitUrl) {
     const projectPath = baseProject + "/" + projectUrl    
     var isExist = fs.existsSync(projectPath)
     
@@ -39,7 +39,7 @@ docsDownload = (projectUrl, gitUrl) => {
 }
 
 // Git PULL
-docsPull = async (projectUrl) => {
+async function docsPull(projectUrl) {
     const projectPath = baseProject + "/" + projectUrl    
     var isExist = fs.existsSync(projectPath)
     if(!isExist) {
@@ -54,7 +54,7 @@ docsPull = async (projectUrl) => {
 }
 
 // Document List
-docsList = (projectUrl) => {
+function docsList(projectUrl) {
     
     const projectPath = baseProject + "/" + projectUrl    
 
@@ -74,7 +74,7 @@ docsList = (projectUrl) => {
 
 }
 
-docRead = (projectUrl, hash) => {
+function docRead(projectUrl, hash) {
     let doc = undefined;
     docsList(projectUrl).forEach(file => {
         if(file.md5 === hash) {
@@ -91,8 +91,9 @@ docRead = (projectUrl, hash) => {
     return doc;
 }
 
-docKeyRead = (projectUrl, hash) => {
+function docKeyRead(projectUrl, hash) {
     const text = docRead(projectUrl, hash)
+    if(text === undefined) return undefined;
     const rows = []
     text.split(/\r?\n/i).forEach(row => {
         rows.push({
