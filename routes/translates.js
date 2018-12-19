@@ -140,6 +140,35 @@ vote = (req, res) => {
     });
 }
 
+getInfo = (req, res) => {
+    const key = req.params.key
+    DB_transLog.findById(key)
+        .then((row) => {
+            if(!row) {
+                res.send({
+                    status: false,
+                    message: "존재하지 않는 데이터입니다."
+                })
+                return;
+            }
+            res.send({
+                status: true,
+                data: {
+                    _id: row._id,
+                    project: row.project,
+                    translateKey: row.translateKey,
+                    isAccept: row.isAccept,
+                    isAccepted: row.isAccepted,
+                    owner: row.owner,
+                    trans: row.trans,
+                    like: row.like,
+                    dislike: row.dislike,
+                    rate: row.like / (row.like + row.dislike) * 100
+                }
+            })
+        })
+}
+
 // REQUEST
 // Username : string
 // RESPONSE
@@ -169,3 +198,6 @@ router.post('/:projectUrl/LogSubmit', LogSubmit);
 
 //# POST 번역 문장 투표 /translate/:projectUrl/vote
 router.post('/:projectUrl/vote', vote);
+
+//# GET 번역 문장 정보 /translate/:projectUrl
+router.get('/:key', getInfo)

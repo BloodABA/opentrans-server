@@ -32,6 +32,10 @@ App.NonLoginPage = [
     {
         method : ["GET"],
         regex : /^\/project\/.*/
+    },
+    {
+        method : ["GET"],
+        regex : /^\/translate\/.*/
     }
 ]
 
