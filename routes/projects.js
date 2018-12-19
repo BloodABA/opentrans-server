@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const DB_Projects = require('../models/projects');
 const ABAFunc = require('../func');
-const document = require('../git')
+const Docs = require('../git')
 
 create = async (req, res) => {
 
@@ -73,7 +73,7 @@ create = async (req, res) => {
         dest : req.body.dest,
         visibility : req.body.visibility,
         openTimestamp : req.body.openTimestamp,
-        closeTimestamp : req.body.closeTimestamp,
+        closeTimestamp : req.body.closeTimesstamp,
         isOpensource : req.body.isOpensource
     }).then(result => {
         res.send({
@@ -259,14 +259,33 @@ modify = async (req, res) => {
     return;
 
 }
+
+docsApply = (req, res) => {
+    if(!req.body.gitUrl) {
+        res.send({
+            status: false,
+            message: "Git URL이 입력되지 않았습니다."
+        })
+        return;
+    }
+
+    git.docsDownload(req.params.projectUrl, req.body.gitUrl);
+    
+    return;
+}
+
+
 //# 프로젝트 생성
 router.post('/create', create);
 
 //# projectUrl에 해당하는 프로젝트 열람
-router.get('/:projectUrl',projectOpen);
+router.get('/:projectUrl', projectOpen);
 
-//# [보류] 프로젝트 수정
-router.post('/:projectUrl/modify',modify);
+//# 프로젝트 수정
+router.post('/:projectUrl/modify', modify);
+
+//# 문서 업로드 ( git )
+router.post('/:projectUrl/docsApply', docsApply);
 
 //# [보류] 프로젝트 삭제 가능한지 체크
 //# 완료조건1. 채택 대기 중 번역문장이 존재하지 않을 것.

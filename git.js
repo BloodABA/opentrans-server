@@ -35,6 +35,7 @@ docsDownload = (projectUrl, gitUrl) => {
         Git.Clone(gitUrl, projectPath).then(repo => {
             console.log("Git Clone Complete")
         })
+        return true;
     } else {
         Git.Repository.open(projectPath).then(repo => {
             console.log("Git Pull ...")
@@ -44,9 +45,10 @@ docsDownload = (projectUrl, gitUrl) => {
                 console.log("Git Pull Complete")
             });
         })
+        return true;
     }
 
-    return true;
+    return false;
 }
 
 // Document List
