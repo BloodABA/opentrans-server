@@ -2,6 +2,7 @@ const router = require('express').Router();
 const ABAFunc = require('../func');
 const DB_translate = require('../models/translate');
 const DB_transLog = require('../models/transLog');
+const DB_voted = require('../models/voted');
 const Docs = require('../git')
 
 submit = async (req, res) => {
@@ -12,7 +13,6 @@ router.post('/submit', submit);
 module.exports = router;
 
 
-// REQUEST
 LogSubmit = (req, res) => {
     const projectUrl = req.params.projectUrl
     const docKey = req.body.docKey
@@ -69,16 +69,9 @@ LogSubmit = (req, res) => {
             })
         })
 }
-// TranslateKey : string
-//// Username : string
-// Transe : string
-
-// RESPONSE
-// status : boolean
-// message : string
 
 
-// post번역 문장 삭제 /translate/LogDelete
+// # post번역 문장 삭제 /translate/LogDelete
 
 // REQUEST
 // TranslateKey : string
@@ -88,7 +81,64 @@ LogSubmit = (req, res) => {
 // message : string
 
 
-// post번역 문장 투표 /translate/LogVote
+// # post 번역 문장 투표 /translate/:projectUrl/vote
+vote = (req, res) => {
+    const projectUrl = req.params.projectUrl
+    const tk = req.body.transLogKey
+    const type = req.body.type
+    const username = req.session.username
+    DB_voted.findOne({
+        username: username,
+        transLogKey: tk
+    }).then((row) => {
+        if(row) {
+            res.send({
+                status: false,
+                message: "이미 투표하셨습니다."
+            })
+            return;
+        }
+        DB_voted.create({
+            project: projectUrl,
+            transLogKey: tk,
+            type: type, // false = 반대, true = 찬성
+            username: username
+        }).then(() => {
+            if(type) {
+                return DB_transLog.findByIdAndUpdate(
+                    tk,
+                    {
+                        $inc: {
+                            like : 1
+                        }
+                    }
+                )
+            } else {
+                DB_transLog.findByIdAndUpdate(
+                    tk,
+                    {
+                        $inc: {
+                            dislike : 1
+                        }
+                    }
+                )
+                return;
+            }
+        }).then(()=> {
+            res.send({
+                status: true,
+                message: "투표해주셔서 감사합니다."
+            })
+            return;
+        })
+    }).catch(e => {
+        console.log(e);
+        res.send({
+            status: false,
+            message: "알 수 없는 에러입니다."
+        })
+    });
+}
 
 // REQUEST
 // Username : string
@@ -114,5 +164,8 @@ LogSubmit = (req, res) => {
 // status : boolean
 // message : string
 
-//# post번역 문장 제출 /translate/:projectUrl/LogSubmit
+//# POST 번역 문장 제출 /translate/:projectUrl/LogSubmit
 router.post('/:projectUrl/LogSubmit', LogSubmit);
+
+//# POST 번역 문장 투표 /translate/:projectUrl/vote
+router.post('/:projectUrl/vote', vote);

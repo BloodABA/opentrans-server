@@ -10,6 +10,7 @@ app.use(bodyParser.json({limit: '1024mb', extended: true }));
 app.use(bodyParser.urlencoded({limit: '1024mb', extended: true }));
 
 app.all('/*', function(req, res, next) {
+    console.log("[ " + req.method + " ] " + req.path)
     res.header('Access-Control-Allow-Origin', JEnum.client);
     res.header('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE');
     res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');

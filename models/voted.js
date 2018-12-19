@@ -14,6 +14,12 @@ const Database = new mongoose.Schema({
         index : true,
         required : true
     },
+
+    // Vote
+    type : {
+        type : Boolean,
+        required : true
+    },
     
     // Username
     username : {
