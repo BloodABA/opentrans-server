@@ -32,23 +32,25 @@ docsDownload = (projectUrl, gitUrl) => {
     if(!isExist) {
         fs.mkdirSync(projectPath)
         console.log("Git Clone ...")
-        Git.Clone(gitUrl, projectPath).then(repo => {
-            console.log("Git Clone Complete")
-        })
-        return true;
+        return Git.Clone(gitUrl, projectPath)
     } else {
-        Git.Repository.open(projectPath).then(repo => {
-            console.log("Git Pull ...")
-            repo.fetchAll().then(() => {
-                return repo.mergeBranches("master", "origin/master");
-            }).then(() => {
-                console.log("Git Pull Complete")
-            });
-        })
-        return true;
+        return false;
     }
+}
 
-    return false;
+// Git PULL
+docsPull = async (projectUrl) => {
+    const projectPath = baseProject + "/" + projectUrl    
+    var isExist = fs.existsSync(projectPath)
+    if(!isExist) {
+        return false;
+    } else {
+        var repo = await Git.Repository.open(projectPath);
+        console.log("Git Pull ...")
+        return repo.fetchAll().then(() => {
+            return repo.mergeBranches("master", "origin/master");
+        })
+    }
 }
 
 // Document List
@@ -106,6 +108,7 @@ docKeyRead = (projectUrl, hash) => {
 
 // // Document 다운로드
 // docsDownload(projectUrl, gitUrl)
+// docsPull(projectUrl)
 
 // // Document List
 // docs = docsList(projectUrl)
