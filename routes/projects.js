@@ -261,6 +261,7 @@ modify = async (req, res) => {
 }
 
 docsApply = (req, res) => {
+
     if(!req.body.gitUrl) {
         res.send({
             status: false,
@@ -269,7 +270,21 @@ docsApply = (req, res) => {
         return;
     }
 
-    git.docsDownload(req.params.projectUrl, req.body.gitUrl);
+    var docs = Docs.docsDownload(req.params.projectUrl, req.body.gitUrl);
+    if(docs === false) {
+        res.send({
+            status: false,
+            message: "이미 다운로드했습니다. 새로운 버전으로 업데이트 하시려면 '업데이트'를 해주세요."
+        })
+        return;
+    }
+
+    docs.then(() => {
+        res.send({
+            status: true,
+            message: "문서 업로드를 성공하였습니다."
+        })
+    })
     
     return;
 }

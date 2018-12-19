@@ -225,6 +225,17 @@
    - **RESPONSE****
      - status : boolean
      - message : string
+  
+  7. `POST` 문서 업로드 `/:projectUrl/docsApply`
+
+    github 또는 다른 git repository를 clone하는 방식으로 문서를 서버에 업로드합니다.
+
+   - **REQUEST**
+     - gitUrl : string
+   - **RESPONSE****
+     - status : boolean
+     - message : string
+
 
 ### 번역
 1. `post`번역 문장 제출 `/translate/LogSubmit`
