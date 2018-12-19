@@ -9,6 +9,13 @@ const Database = new mongoose.Schema({
         index : 1
     },
 
+    // Document Key
+    docKey : {
+        type : String,
+        required : true,
+        index : 1
+    },
+
     // 번역 여부
     isTrans : {
         type : Boolean,
@@ -70,7 +77,8 @@ const Database = new mongoose.Schema({
 Database.index({
     project : 1,
     isTrans : 1,
-    line : 1
+    line : 1,
+    docKey: 1
 })
 
 module.exports = mongoose.model('translate', Database);

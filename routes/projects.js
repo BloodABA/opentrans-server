@@ -295,18 +295,27 @@ docsApply = (req, res) => {
 
 async function transUpdate(projectUrl) {
     const files = Docs.docsMDList(projectUrl);
-    for(let i=0;i<files.length;i++) {
+    for (let i = 0; i < files.length; i++) {
         const arr = []
         const file = files[i];
         const texts = Docs.docKeyRead(projectUrl, file.md5)
-        for(let j=0;j<texts.length;j++) {
-            const text = texts[j];
-            try {
-                if(!text.text) continue;
-                const key = file.md5 + '|' + text.key
-                const row = await DB_Translate.findOne({key: key}).exec()
-                if(!row) {
+
+        start = (new Date()).getTime();
+        const rows = await DB_Translate.find({ docKey: file.md5 }).exec()
+        console.log(" > " + i + ". " + ((new Date()).getTime() - start))
+        try {
+
+            for(let j=0;j<texts.length;j++) {
+                const text = texts[j];
+                    if(!text.text) continue;
+                    const key = file.md5 + '|' + text.key
                     let flag = false;
+                    for(let k=0;k<arr.length;k++) {
+                        if(key === arr[k].key) {
+                            flag = true;
+                            break;
+                        }
+                    }
                     for(let k=0;k<arr.length;k++) {
                         if(key === arr[k].key) {
                             flag = true;
@@ -317,6 +326,7 @@ async function transUpdate(projectUrl) {
                     arr.push({
                         project: projectUrl,
                         isTrans: false,
+                        docKey: file.md5,
                         key: key,
                         src: text.text,
                         dest: "",
@@ -325,12 +335,12 @@ async function transUpdate(projectUrl) {
                         acceptTransLog: "",
                         acceptTime: -1
                     })
-                }
-            } catch (error) {
-                console.log(error)
             }
+            // console.log("arr : " + arr.length)
+            await DB_Translate.insertMany(arr)
+        } catch (error) {
+            console.log(error)
         }
-        await DB_Translate.insertMany(arr)
     }
 }
 
