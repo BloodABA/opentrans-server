@@ -294,11 +294,21 @@ session = (req, res) => {
     return;
 };
 
-//# 로그인
+logout = (req, res) => {
+    req.session.isLogin = false;
+    res.send({
+        status: true
+    })
+}
+
+//# 세션
 router.get('/session', session);
 
 //# 로그인
 router.post('/login', login);
+
+//# 로그아웃
+router.get('/logout', logout);
 
 //# 회원가입
 router.post('/register', register);
