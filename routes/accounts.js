@@ -279,7 +279,8 @@ project = (req, res) => {
 }
 
 //# 세션
-router.post('/session', (req, res) => {
+session = (req, res) => {
+    console.log(req.session);
     if(req.session.isLogin) {
         res.send({
             status: true,
@@ -291,7 +292,10 @@ router.post('/session', (req, res) => {
         status: false,
     })
     return;
-});
+};
+
+//# 로그인
+router.get('/session', session);
 
 //# 로그인
 router.post('/login', login);

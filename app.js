@@ -35,10 +35,14 @@ app.all('/*', function(req, res, next) {
 });
 
 app.use(session({
-    secret: 'Seesion_Scret_Code',
-    resave: false,
-    saveUninitialized: true
+    secret : '!@#$IDISRNDASSETS!#$%',
+    resave : false,
+    saveUninitialized : true,
+    cookie : { httpOnly : true, maxAge : 86400000} // maxAge in miliseconds.
 }));
+
+
+출처: http://code-daniel.tistory.com/135 [● Smart Programmer ● - "다니엘의 IT 도서관"]
 
 app.all('/*', function(req, res, next) {
     let flag = false;
