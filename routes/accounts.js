@@ -278,6 +278,21 @@ project = (req, res) => {
 
 }
 
+//# 세션
+router.post('/session', (req, res) => {
+    if(req.session.isLogin) {
+        res.send({
+            status: true,
+            username: req.session.username
+        })
+        return;
+    }
+    res.send({
+        status: false,
+    })
+    return;
+});
+
 //# 로그인
 router.post('/login', login);
 

@@ -1,8 +1,8 @@
 const App = {}
 
 App.port = 8080
-App.client = "https://link.jtj.kr"
-App.domain = "https://localhost:8080"
+App.client = "http://localhost:3000"
+App.domain = "http://localhost:8080"
 App.mongo = {
     url : "mongodb://localhost/OpenTrans",
     // username : "",
