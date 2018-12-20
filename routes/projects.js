@@ -405,6 +405,15 @@ docsList = (req, res) => {
     return;
 }
 
+
+docsMDList = (req, res) => {
+    res.send({
+        status : true,
+        data : Docs.docsMDList(req.params.projectUrl)
+    })
+    return;
+}
+
 //# 프로젝트 생성
 router.post('/create', create);
 
@@ -422,6 +431,9 @@ router.post('/:projectUrl/docsUpdate', docsUpdate);
 
 //# 문서 목록 ( docs list )
 router.get('/:projectUrl/list', docsList);
+
+//# 문서 목록 ( docs list ) + md
+router.get('/:projectUrl/list/md', docsMDList);
 
 //# 문서 읽기 ( docs read )
 router.get('/:projectUrl/:fileHash', docsRead);
