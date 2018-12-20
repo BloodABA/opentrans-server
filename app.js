@@ -46,7 +46,6 @@ app.use(session({
 }));
 
 
-출처: http://code-daniel.tistory.com/135 [● Smart Programmer ● - "다니엘의 IT 도서관"]
 
 app.all('/*', function(req, res, next) {
     let flag = false;

@@ -28,7 +28,7 @@ LogSubmit = (req, res) => {
     }
 
     Docs.docKeyRead(projectUrl, docKey)
-    const transKey = docKey + "|" + tk
+    const transKey = tk
     DB_translate.findOne({
         docKey: docKey,
         key: transKey
@@ -48,17 +48,17 @@ LogSubmit = (req, res) => {
                 })
                 return;
             }
-            return DB_transLog.create({
+            DB_transLog.create({
                 project: projectUrl,
                 translateKey: transKey,
                 owner: req.session.username,
                 trans: tl
-            })
-        })
-        .then(() => {
-            res.send({
-                status: true,
-                message: "Okay"
+            }).then(() => {
+                res.send({
+                    status: true,
+                    message: "Okay"
+                })
+                return;
             })
         })
         .catch(e => {
@@ -142,6 +142,24 @@ vote = (req, res) => {
 
 getInfo = (req, res) => {
     const key = req.params.key
+    DB_transLog.find({translateKey:key})
+        .then((rows) => {
+            if(!rows) {
+                res.send({
+                    status: false,
+                    message: "존재하지 않는 데이터입니다."
+                })
+                return;
+            }
+            res.send({
+                status: true,
+                data: rows
+            })
+        })
+}
+
+getLogInfo = (req, res) => {
+    const key = req.params.key
     DB_transLog.findById(key)
         .then((row) => {
             if(!row) {
@@ -201,3 +219,6 @@ router.post('/:projectUrl/vote', vote);
 
 //# GET 번역 문장 정보 /translate/:projectUrl
 router.get('/:key', getInfo)
+
+//# GET 번역 문장 정보 /translate/getLogInfo/:projectUrl
+// router.get('/getLogInfo/:key', getLogInfo)
