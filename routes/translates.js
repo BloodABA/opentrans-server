@@ -29,10 +29,7 @@ LogSubmit = (req, res) => {
 
     Docs.docKeyRead(projectUrl, docKey)
     const transKey = tk
-    console.log({
-        docKey: docKey,
-        key: transKey
-    })
+
     DB_translate.findOne({
         docKey: docKey,
         key: transKey
