@@ -115,7 +115,7 @@ vote = (req, res) => {
                     }
                 )
             } else {
-                DB_transLog.findByIdAndUpdate(
+                return  DB_transLog.findByIdAndUpdate(
                     tk,
                     {
                         $inc: {
@@ -123,7 +123,6 @@ vote = (req, res) => {
                         }
                     }
                 )
-                return;
             }
         }).then(()=> {
             res.send({
