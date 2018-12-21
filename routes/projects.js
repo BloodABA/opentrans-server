@@ -308,7 +308,7 @@ async function transUpdate(projectUrl) {
             for(let j=0;j<texts.length;j++) {
                 const text = texts[j];
                     if(!text.text) continue;
-                    const key = file.md5 + '|' + text.key
+                    const key = text.key
                     let flag = false;
                     for(let k=0;k<arr.length;k++) {
                         if(key === arr[k].key) {
