@@ -1,3 +1,5 @@
+[![OPEN TRANS](http://img.youtube.com/vi/rMxO8jRsC1w/0.jpg)](http://www.youtube.com/watch?v=rMxO8jRsC1w "OPEN TRANS")
+
 # 바운티 지급
 
 ### Open Project
